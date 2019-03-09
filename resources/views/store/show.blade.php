@@ -1,11 +1,11 @@
 @extends('store.partials.main')
 
 @section('content')
-@if(Auth::guard('customer')->check())
+{{-- @if(Auth::guard('customer')->check())
 <div class="CheckoutCart checkout-cart checkout-cart-floating">
     @include('store.partials.checkout-cart')
 </div>
-@endif
+@endif --}}
 <div class="container padding-bottom-3x mb-1 marg-top-25">
 	
 	<div class="row product-show">
