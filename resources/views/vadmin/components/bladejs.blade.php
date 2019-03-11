@@ -400,4 +400,43 @@
         });
     });
 
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | GET PROVINCES and LOCALITIES
+    |--------------------------------------------------------------------------
+    */
+
+    function getGeoLocs(geoprov_id){
+
+        let route = "{{ url('getGeoLocs') }}/"+geoprov_id+"";
+        $.ajax({
+            url: route,
+            method: 'GET',
+            dataType: 'JSON',
+            success: function(e){
+                // Print Locs
+                var select = $('#GeoLocsSelect');
+                var actuallocid = $('#GeoLocsSelect').data('actuallocid');
+
+                select.html('');
+                for (var i = 0, len = e.geolocs.length; i < len; i++) {
+                    if(actuallocid != '' && e.geolocs[i]['id'] == actuallocid){
+                        select.append("<option selected value='"+ e.geolocs[i]['id'] +"'>"+ e.geolocs[i]['name'] +"</option>");
+                    } else {
+                        select.append("<option value='"+ e.geolocs[i]['id'] +"'>"+ e.geolocs[i]['name'] +"</option>");
+                    }
+                }
+
+            },
+            error: function(e){
+                console.log('ERROR');
+                console.log(e);
+                $('#Error').html(e.responseText);
+            }
+        });
+
+    }
+
 </script>

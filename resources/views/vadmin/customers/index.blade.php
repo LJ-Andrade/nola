@@ -12,12 +12,12 @@
 		@slot('actions')
 			{{-- Actions --}}
 			<div class="list-actions">
-				<a href="{{ route('customers.create') }}" class="btn btnBlue"><i class="icon-plus-round"></i>  Nuevo Cliente</a>
-				<button id="SearchFiltersBtn" class="btn btnGreen"><i class="icon-ios-search-strong"></i></button>
+				<a href="{{ route('customers.create') }}" class="btn btnMain"><i class="icon-plus-round"></i>  Nuevo Cliente</a>
+				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
 				@if(Auth::guard('user')->user()->role <= 2)
 				{{-- Edit --}}
-				{{-- <button class="EditBtn btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</button>
-				<input id="EditId" type="hidden"> --}}
+				<button class="EditBtn btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</button>
+				<input id="EditId" type="hidden"> 
 				{{-- Delete --}}
 				{{--  THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER  --}}
 				<input id="ModelName" type="hidden" value="customers">

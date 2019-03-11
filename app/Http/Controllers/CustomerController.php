@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Customer;
+use App\GeoProv;
 use Auth;
 use Image;
 use File;
@@ -156,32 +157,37 @@ class CustomerController extends Controller
 
     public function create()
     {
-        return view('vadmin.customers.create');
+        $geoprovs = GeoProv::pluck('name','id');
+        return view('vadmin.customers.create')->with('geoprovs', $geoprovs);
     }
 
     public function store(Request $request)
     {
-        $Customer = new Customer($request->all());
+
+        $customer = new Customer($request->all());
         $this->validate($request,[
             'name'           => 'required',
             'email'          => 'min:3|max:250|required|unique:customers,email',
             'password'       => 'min:4|max:12listado-usuarios0|required|',
+            'group'          => 'required'
             
         ],[
-            'email.required' => 'Debe ingresar un email',
-            'email.unique'   => 'El email ya existe',
-            'password'       => 'Debe ingresar una contraseña',
+            'email.required'    => 'Debe ingresar un email',
+            'email.unique'      => 'El email ya existe',
+            'password.required' => 'Debe ingresar una contraseña',
+            'group.required'    => 'Debe ingresar un tipo de cliente'
         ]);
 
         if($request->file('avatar') != null){
             $avatar   = $request->file('avatar');
-            $filename = $Customer->Customername.'.jpg';
+            $filename = $customer->name.'.jpg';
             Image::make($avatar)->encode('jpg', 80)->fit(300, 300)->save(public_path('images/customers/'.$filename));
-            $Customer->avatar = $filename;
+            $customer->avatar = $filename;
         }
 
-        $Customer->password = bcrypt($request->password);
-        $Customer->save();
+        $customer->password = bcrypt($request->password);
+        $customer->status = '1';
+        $customer->save();
 
         return redirect('vadmin/customers')->with('message', 'Cliente creado correctamente');
     }
@@ -193,48 +199,70 @@ class CustomerController extends Controller
     */
     public function edit($id)
     {
-        $Customer = Customer::findOrFail($id);
-        return view('vadmin.customers.edit', compact('Customer'));
+        $geoprovs = GeoProv::pluck('name','id');
+        $customer = Customer::findOrFail($id);
+        $section = 'customer-edit';
+        return view('vadmin.customers.edit')
+            ->with('geoprovs', $geoprovs)
+            ->with('customer', $customer)
+            ->with('section', $section); 
     }
 
     public function update(Request $request, $id)
     {
-        $Customer = Customer::findOrFail($id);
-        $this->validate($request,[
-            'name' => 'required|max:255',
-            'Customername' => 'required|max:20|unique:customers,Customername,'.$Customer->id,
-            'email' => 'required|email|max:255|unique:customers,email,'.$Customer->id,
-            'password' => 'required|min:6|confirmed',
-            
-        ],[
-            'name.required' => 'Debe ingresar un nombre',
-            'Customername.required' => 'Debe ingresar un nombre de usuario',
-            'Customername.unique' => 'El nombre de usuario ya está siendo utilizado',
-            'email.required' => 'Debe ingresar un email',
-            'email.unique' => 'El email ya existe',
-            'password.min' => 'El password debe tener al menos :min caracteres',
-            'password.required' => 'Debe ingresar una contraseña',
-            'password.confirmed' => 'Las contraseñas no coinciden',
-        ]);
-
-        $Customer->fill($request->all());
-
-        $Customer->password = bcrypt($request->password);
-        if($request->file('avatar') != null){
-            $avatar   = $request->file('avatar');
-            $filename = $Customer->Customername.'.jpg';
-            Image::make($avatar)->encode('jpg', 80)->fit(300, 300)->save(public_path('images/customers/'.$filename));
-            $Customer->avatar = $filename;
+        $customer = Customer::findOrFail($id);
+        if($request->updatePassword == '1')
+        {
+            $this->validate($request,[
+                'name' => 'required|max:255',
+                'name' => 'required|max:20|unique:customers,name,'.$customer->id,
+                'email' => 'required|email|max:255|unique:customers,email,'.$customer->id,
+                'password' => 'required|min:6|confirmed',
+                
+            ],[
+                'name.required' => 'Debe ingresar un nombre',
+                'name.required' => 'Debe ingresar un nombre de usuario',
+                'name.unique' => 'El nombre de usuario ya está siendo utilizado',
+                'email.required' => 'Debe ingresar un email',
+                'email.unique' => 'El email ya existe',
+                'password.min' => 'El password debe tener al menos :min caracteres',
+                'password.required' => 'Debe ingresar una contraseña',
+                'password.confirmed' => 'Las contraseñas no coinciden',
+            ]);
+        }
+        else 
+        {
+            $this->validate($request,[
+                'name' => 'required|max:255',
+                'name' => 'required|max:20|unique:customers,name,'.$customer->id,
+                'email' => 'required|email|max:255|unique:customers,email,'.$customer->id,
+                
+            ],[
+                'name.required' => 'Debe ingresar un nombre',
+                'name.required' => 'Debe ingresar un nombre de usuario',
+                'name.unique' => 'El nombre de usuario ya está siendo utilizado',
+                'email.required' => 'Debe ingresar un email',
+                'email.unique' => 'El email ya existe',
+            ]);
         }
 
-        $Customer->save();
+        $customer->fill($request->all());
 
-        return redirect('vadmin/customers')->with('Message', 'Usuario '. $Customer->name .'editado correctamente');
+        $customer->password = bcrypt($request->password);
+        if($request->file('avatar') != null){
+            $avatar   = $request->file('avatar');
+            $filename = $customer->Customername.'.jpg';
+            Image::make($avatar)->encode('jpg', 80)->fit(300, 300)->save(public_path('images/customers/'.$filename));
+            $customer->avatar = $filename;
+        }
+
+        $customer->save();
+
+        return redirect('vadmin/customers')->with('Message', 'Usuario '. $customer->name .'editado correctamente');
     }
 
+
     // ---------- Update Avatar --------------- //
-
-
     public function updateCustomerAvatar(Request $request)
     {
         if ($request->hasFile('avatar')) {

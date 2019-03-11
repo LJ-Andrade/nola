@@ -2,17 +2,19 @@
 <div class="topbar">
 	<div class="topbar-column">
 		Seguinos: 
-		<a class="social-button sb-facebook shape-none sb-dark" href="https://www.facebook.com/br.ndumentaria/" target="_blank">
+		<a class="social-button sb-facebook shape-none sb-dark" href="https://www.facebook.com/Nolaindumentaria-384673822361642/" target="_blank">
 			<i class="socicon-facebook"></i>
 		</a>
-		<a class="social-button sb-instagram shape-none sb-dark" href="https://www.instagram.com/bruna.indumentaria1/" target="_blank">
+		<a class="social-button sb-instagram shape-none sb-dark" href="https://instagram.com/nola.indumentaria?utm_source=ig_profile_share&igshid=kfnlpi0zzuog" target="_blank">
 			<i class="socicon-instagram"></i>
 		</a>
 	</div>
 	<div class="topbar-column">
-		<a class="">&nbsp;<b>11-6761-8867 </b></a>
+		<a class="">&nbsp;<b>
+		{{-- Phone --}}
+		</b></a>
 		<a class="e-mail-field" href="mailto:info@brunaindumentaria.com.ar">
-			<i class="icon-mail"></i>&nbsp; info@brunaindumentaria.com.ar
+			<i class="icon-mail"></i>&nbsp; info@nola.com.ar
 		</a>
 		@if(Auth::guard('customer')->check())
 		<button onclick="checkoutSidebar('show')" class="icon-btn-small"|><i class="fas fa-shopping-cart"></i></button>

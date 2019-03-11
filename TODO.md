@@ -1,15 +1,6 @@
 # Errores - Fallas - Bugs - Glitches
 
-# Augusta Moi
-
-- Variantes talles colores
-- Items tienen marcas. Filtrar por marcas. Mostrar pedidos por marca
-- Registro: mail * , contraseña * , teléfono
-- 1 solo tipo de precio. 1 solo tipo de customer
-- Compra inicial $5000
-- Se aguanta por 30 días.
-
-# Bruna
+# Nola
 
 Vadmin
 
@@ -17,21 +8,15 @@ Cuando toco actualizar ítem me lleva al principio de la página 1, debería que
 
 Cuando cargo más fotos en una publicación, para cambiar la destacada, tengo que tocar actualizar cambios, volver a entrar a la publicación y recién ahí elegir cual quiero destacar. Ahorraría mucho tiempo poder elegir la destacada ni bien se cargan las nuevas fotos.
 
-
-
-
 VADMIN
-
-
 1 - Cargar pedido
 
 Todos los datos del checkout
 de cliente
 Micro - Nombre apellido - Teléfono - Dirección - CP - Localidad Provincia - CUIT - DNI 
 
-2 - Notas de pedido bajo datos en PDF y en vista 
+2 - Notas de pedido bajo datos en PDF y en vista
 
-3 - Eliminar pantalla intermedia de checkout 
 
 Listado de pedidos
 - Finalizados > ver unificado
@@ -61,10 +46,8 @@ agregar todos los datos en seccion crear cliente
 
 6 -  ABM de marcas
 
-
 ====================================================
 WEB
-
 
 Por defecto entrar a tienda mayorísta.
 Boton con el que se pueda cambiar tipo de tienda (may o min)
@@ -74,33 +57,19 @@ Usuario* - Mail* - Telefono/WhatsApp
 
 Mostrar que campos son requeridos.
 
-
 Cuando compra minorista
 Opcion 2: que al llegar a las 10 prendas le haga un descuento del 40%. Me parece esta la mejor
 
 Cliente que pueda cambiar tipo de cliente
 
-
 Compra
 Posibilidad de poder comprar desde listado aunque tenga talles, si producto tiene talles abrir popup para que pueda seleccionarlos
 
-
-
 Que el color aparezca en el título (Lo toma del campo color).
-
-
 
 - Rehacer filtros de busqueda y que sean combinables.
 
-
-
  9 ) Agregar sección quienes somos
-
-
-
-
-
-
 
 # Implementar
 
@@ -129,17 +98,16 @@ Te hago una consulta respecto al listado de clientes. Estamos haciendo publicida
 Y lo otro es si se puede saber cuantas personas entran por día a la página, cuantas abren carros y no finalizan compras. Para poder sacar estadísticas de eso. Google analytics por ejemplo, pero no tengo idea, sólo sé que sirve para eso.
 
 
-## NOSE - Parece que anda
-==============================================
--Está tomando el mínimo como 12 artículos distintos cuando deberia tomar la cantidad total. Si yo quiero comprar 6 de un modelo y 6 de otro me tiene que dejar.
--En el carrito, cuando dice stock (marca 1 de menos).
-- Cuando toco la tecla de borrar sin querer afuera del cuadradito para modificar stock me lleva a la hoja anterior, esa tecla no tendría que hacer nada.
-- Modificar el nombre anda raro, se me recarga solo antes de que termine de escribir y no sé por qué, no entiendo si para modificarlo es con un click sólo o doble click sobre el nombre
-
 
 
 ==============================================
 # Hecho
+
+
+HECHO
+3 - Eliminar pantalla intermedia de checkout
+
+
 - Empujar mensajes a clientes con carros activos inactivos con más de 3 días.
 - Borrar carros con más de 15 días.
 Al editar una publicación: que no tome el “enter” como actualizar item, tiendo a apretarlo sin querer y se me va de la página. Que se actualice sólo tocando ese botón.
