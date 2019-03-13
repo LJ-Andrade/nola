@@ -1,5 +1,10 @@
 # Errores - Fallas - Bugs - Glitches
 
+# TRABAJANDO EN - NOTAS
+
+Cuando se borra un artículo checkear si está siendo usado en carros activos y eliminar tambien el CART ITEM.
+En el checkout sino existe hacer algo para que no se grabe al procesar la compra.
+
 # Nola
 
 Vadmin

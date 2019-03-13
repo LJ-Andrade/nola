@@ -204,7 +204,7 @@ deleteAndReload = function(id, route, bigtext, smalltext) {
 			error: function(data)
 			{
 				location.reload();
-				// $('#Error').html(data.responseText);
+				//$('#Error').html(data.responseText);
 				console.log(data);	
 			}
 		});

@@ -192,16 +192,19 @@ class CartsController extends Controller
 
     public function destroy(Request $request)
     {   
-        // dd($request->all());
         $ids = json_decode('['.str_replace("'",'"',$request->id).']', true);
         try 
         {
             foreach ($ids as $id) {
                 $cart = Cart::find($id);
-                foreach($cart->items as $item){
-                    $this->updateCartItemStock($item->article->id, $item->quantity);
+                if($cart != null)
+                {
+                    foreach($cart->items as $item){
+                        if($item->article != null)
+                            $this->updateCartItemStock($item->article->id, $item->quantity);
+                    }
+                    $cart->delete();
                 }
-                $cart->delete();
             }
             return response()->json([
                 'success'   => true,
@@ -215,6 +218,5 @@ class CartsController extends Controller
             ]);    
         } 
     }
-
 
 }

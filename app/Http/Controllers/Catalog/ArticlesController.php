@@ -9,6 +9,7 @@ use App\CatalogTag;
 use App\CatalogSeason;
 use App\CatalogArticle;
 use App\CatalogFav;
+use App\Cart;
 use App\CatalogImage;
 use App\CatalogAtribute1;
 use File;
@@ -56,7 +57,10 @@ class ArticlesController extends Controller
         $name     = $request->get('name');
         $category = $request->get('category');
         $order    = $request->get('orden');
+        $status   = $request->get('status');
         $rowName = 'stock';
+        if($status == null)
+            $status = 1;
 
         $view = "vadmin.catalog.index";
 
@@ -66,25 +70,6 @@ class ArticlesController extends Controller
             $order = $request->orden_af;
             $rowName = "name";
         }
-
-        // // -------- Pagination -----------
-        // if($request->get('results'))
-        // {
-        //     $pagination = $request->get('results');
-        //     // With expiration
-        //     Cookie::queue('stock-pagination', $pagination, 2000);
-        // }
-        // else
-        // {   
-        //     if($request->get('redirect') != null && Cookie::get('stock-pagination'))
-        //     {
-        //         $pagination = Cookie::get('stock-pagination');
-        //     }
-        //     else 
-        //     {
-        //         $pagination = 15;
-        //     }
-        // }    
         
         // ---------- Order --------------
         if(!isset($order))
@@ -95,57 +80,87 @@ class ArticlesController extends Controller
         
         $categories = CatalogCategory::orderBy('id', 'ASC')->pluck('name','id');  
         
-        if(isset($request->redirect))
+
+        if($status == 0)
         {
-            if($request->redirect == 'stock')
-            {
-                $view = "vadmin.catalog.stock";
-            }
-            
-            if($request->redirect == 'inactive')
-            {
+            // Inactive Items
+            if (isset($code)) {
+                $articles = CatalogArticle::where('code', 'LIKE', "%" . $code . "%")->inactive()->paginate($pagination);
+            } elseif (isset($name)) {
+                $articles = CatalogArticle::searchName($name)->inactive()->orderBy($rowName, $order)->paginate($pagination);
+            } elseif (isset($category)) {
+                $articles = CatalogArticle::where('category_id', $category)->inactive()->orderBy($rowName, $order)->paginate($pagination);
+            } else {
                 $articles = CatalogArticle::orderBy($rowName, $order)->inactive()->paginate($pagination);
-                return view($view)->with('articles', $articles)->with('categories', $categories);
-            }
-            elseif($request->redirect == 'discontinued')
-            {
-                $articles = CatalogArticle::orderBy($rowName, $order)->discontinued()->paginate($pagination);
-                return view($view)->with('articles', $articles)->with('categories', $categories);
             }
         }
+        else
+        {
+            // Active Items
+            if ($order == 'limitados') {
+                $articles = CatalogArticle::whereRaw('catalog_articles.stock < catalog_articles.stockmin')->paginate($pagination);
+            } else {
+                // ---------- Queries ------------    
+                if (isset($code)) {
+                    $articles = CatalogArticle::where('code', 'LIKE', "%" . $code . "%")->active()->paginate($pagination);
+                } elseif (isset($name)) {
+                    $articles = CatalogArticle::searchName($name)->orderBy($rowName, $order)->active()->paginate($pagination);
+                } elseif (isset($category)) {
+                    $articles = CatalogArticle::where('category_id', $category)->active()->orderBy($rowName, $order)->paginate($pagination);
+                } else {
+                    $articles = CatalogArticle::orderBy($rowName, $order)->active()->paginate($pagination);
+                }
+            }
+        }
+
+
+        // if(isset($request->redirect))
+        // {
+        //     if($request->redirect == 'stock')
+        //     {
+        //         $view = "vadmin.catalog.stock";
+        //     }
+            
+        //     if($request->redirect == 'inactive')
+        //     {
+        //         $articles = CatalogArticle::orderBy($rowName, $order)->inactive()->paginate($pagination);
+        //         return view($view)->with('articles', $articles)->with('categories', $categories);
+        //     }
+        //     elseif($request->redirect == 'discontinued')
+        //     {
+        //         $articles = CatalogArticle::orderBy($rowName, $order)->discontinued()->paginate($pagination);
+        //         return view($view)->with('articles', $articles)->with('categories', $categories);
+        //     }
+        // }
+
+
+
 
 
        
-        if($order == 'limitados')
-        {
-            $articles = CatalogArticle::whereRaw('catalog_articles.stock < catalog_articles.stockmin')->activeFull()->paginate($pagination);
-            // dd($articles);
-        }
-        elseif($order == 'descuento')
-        {
-            $articles = CatalogArticle::where('discount', '>', 0)->orWhere('reseller_discount', '>', '0')->activeFull()->orderBy($rowName, $order)->paginate($pagination);
-        }
-        else 
-        {
-            // ---------- Queries ------------    
-            if(isset($code))
-            {
-                $articles = CatalogArticle::where('id', 'LIKE', "%".$code."%")->activeFull()->paginate($pagination);
-            }
-            elseif(isset($name))
-            {
-                $articles = CatalogArticle::searchName($name)->activeFull()->orderBy($rowName, $order)->paginate($pagination);
-            } 
-            elseif(isset($category))
-            {
-                $articles = CatalogArticle::where('category_id', $category)->activeFull()->orderBy($rowName, $order)->paginate($pagination);
-            }
-            else 
-            {
-                $articles = CatalogArticle::orderBy($rowName, $order)->activeFull()->paginate($pagination);
-            }
+        // if($order == 'limitados'){
+        //     $articles = CatalogArticle::whereRaw('catalog_articles.stock < catalog_articles.stockmin')->activeFull()->paginate($pagination);
+        // }
+        // elseif($order == 'descuento'){
+        //     $articles = CatalogArticle::where('discount', '>', 0)->orWhere('reseller_discount', '>', '0')->activeFull()->orderBy($rowName, $order)->paginate($pagination);
+        // }
+        // else 
+        // {
+        //     // ---------- Queries ------------    
+        //     if(isset($code)){
+        //         $articles = CatalogArticle::where('id', 'LIKE', "%".$code."%")->activeFull()->paginate($pagination);
+        //     }
+        //     elseif(isset($name)){
+        //         $articles = CatalogArticle::searchName($name)->activeFull()->orderBy($rowName, $order)->paginate($pagination);
+        //     } 
+        //     elseif(isset($category)){
+        //         $articles = CatalogArticle::where('category_id', $category)->activeFull()->orderBy($rowName, $order)->paginate($pagination);
+        //     }
+        //     else{
+        //         $articles = CatalogArticle::orderBy($rowName, $order)->activeFull()->paginate($pagination);
+        //     }
             
-        }
+        // }
 
         // $categories = CatalogCategory::orderBy('id', 'ASC')->pluck('name','id');       
         
@@ -290,7 +305,6 @@ class ArticlesController extends Controller
         }
         return $items;
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -706,7 +720,22 @@ class ArticlesController extends Controller
                     File::Delete(public_path($thumb.$image->name));
                     $image->delete();
                 }
-                $delete = $record->delete();
+                
+                // Check if exits in active carts and delete
+                $activeCarts = Cart::where('status', 'Active')->get();
+                foreach($activeCarts as $cartItem)
+                {
+                    foreach($cartItem->items as $item)
+                    {
+                        if($item->article_id == $id)
+                        {
+                            $item->delete();
+                        }   
+                    }
+                }
+                $record->delete();
+                
+
             }
             return response()->json([
                 'success'   => true,

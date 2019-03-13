@@ -1,4 +1,9 @@
 
+@php
+$status = request()->status;
+if($status == null)
+    $status = 1;
+@endphp
 
 @php($route = 'catalogo.index')
 @if(isset($inactiveCatalog) && $inactiveCatalog == true)
@@ -12,6 +17,7 @@
                 {!! Form::label('code', 'Buscar por código') !!}
                 <div class="input-group">
                     {!! Form::text('code', null, ['class' => 'form-control', 'aria-describedby' => 'search']) !!}
+                    <input type="hidden" name="status" value ="{{ $status }}">
                     <div class="input-group-append">
                         <button type="submit" id="SearchFiltersBtn" class="btnSm btnMain appendBtn"><i class="icon-search"></i></button>
                     </div>
@@ -23,6 +29,7 @@
                 {!! Form::label('name', 'Buscar por nombre') !!}
                 <div class="input-group">
                     {!! Form::text('name', null, ['class' => 'form-control', 'aria-describedby' => 'search']) !!}
+                    <input type="hidden" name="status" value ="{{ $status }}">
                     <div class="input-group-append">
                         <button type="submit" id="SearchFiltersBtn" class="btnSm btnMain appendBtn"><i class="icon-search"></i></button>
                     </div>
@@ -33,6 +40,7 @@
             <div class="form-control">
                 {!! Form::label('category', 'Buscar por categoría') !!}
                 <div class="input-group">
+                    <input type="hidden" name="status" value ="{{ $status }}">
                     {!! Form::select('category', $categories, ['class' => 'form-control', 'aria-describedby' => 'search']) !!}
                     <div class="input-group-append">
                         <button type="submit" id="SearchFiltersBtn" class="btnSm btnMain appendBtn"><i class="icon-search"></i></button>

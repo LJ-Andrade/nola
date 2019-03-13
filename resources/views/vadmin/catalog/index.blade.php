@@ -51,12 +51,18 @@
 		{{-- Search --}}
 		<div class="row inline-links">
 			<b>Órden:</b> 
-			<a href="{{ route('catalogo.index', ['orden_af' => 'ASC']) }}" >A-Z</a>
-			<a href="{{ route('catalogo.index', ['orden_af' => 'DESC']) }}" >Z-A</a>
-			<a href="{{ route('catalogo.index', ['orden' => 'ASC']) }}">Stock Bajo</a> 
-			<a href="{{ route('catalogo.index', ['orden' => 'DESC']) }}">Stock Alto</a>
-			<a href="{{ route('catalogo.index', ['orden' => 'limitados']) }}" >Stock Limitado</a>
-			<a href="{{ route('catalogo.index', ['orden' => 'descuento']) }}" >Con descuento</a>
+			@if(isset($_GET['status']))
+				@php($status = $_GET['status'])
+			@else
+				@php($status = 1)
+			@endif
+
+			<a href="{{ route('catalogo.index', ['orden_af' => 'ASC', 'status' => $status]) }}" >A-Z</a>
+			<a href="{{ route('catalogo.index', ['orden_af' => 'DESC', 'status' =>  $status]) }}" >Z-A</a>
+			<a href="{{ route('catalogo.index', ['orden' => 'ASC', 'status' =>  $status]) }}">Stock Bajo</a> 
+			<a href="{{ route('catalogo.index', ['orden' => 'DESC', 'status' =>  $status]) }}">Stock Alto</a>
+			<a href="{{ route('catalogo.index', ['orden' => 'limitados', 'status' =>  $status]) }}" >Stock Limitado</a>
+			<a href="{{ route('catalogo.index', ['orden' => 'descuento', 'status' =>  $status]) }}" >Con descuento</a>
 		</div>
 		<div class="row">
 			@component('vadmin.components.list')
@@ -231,29 +237,6 @@
 		setData();
 
 		allowEnterOnForms = true;
-
-
-		// Detect F5 and Save 
-		// USE NOT RECOMMENDED
-		// document.onkeydown = fkey;
-		// document.onkeypress = fkey
-		// document.onkeyup = fkey;
-
-		// var wasPressed = false;
-
-		// function fkey(e){
-		// 		e = e || window.event;
-		// 	if(wasPressed) return; 
-
-		// 	if (e.keyCode == 116 || e.keyCode == 8) {
-		// 		$('#UpdateList').click();
-		// 		alert_ok("","Datos guardados");
-		// 		wasPressed = true;
-		// 	}
-		// }
-
-		
-
 		
 	</script>
 @endsection
