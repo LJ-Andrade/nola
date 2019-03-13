@@ -14,9 +14,9 @@ if($status == null)
     <div class="row">
         {!! Form::open(['id' => 'SearchForm', 'method' => 'GET', 'route' => $route, 'class' => 'col-md-2 col-xs-12 pad0', 'role' => 'search']) !!} 
             <div class="form-control">
-                {!! Form::label('code', 'Buscar por código') !!}
+                {!! Form::label('id', 'Buscar por código') !!}
                 <div class="input-group">
-                    {!! Form::text('code', null, ['class' => 'form-control', 'aria-describedby' => 'search']) !!}
+                    {!! Form::text('id', null, ['class' => 'form-control', 'aria-describedby' => 'search']) !!}
                     <input type="hidden" name="status" value ="{{ $status }}">
                     <div class="input-group-append">
                         <button type="submit" id="SearchFiltersBtn" class="btnSm btnMain appendBtn"><i class="icon-search"></i></button>

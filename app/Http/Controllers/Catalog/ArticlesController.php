@@ -53,7 +53,7 @@ class ArticlesController extends Controller
         $pagination = $this->getSetPaginationCookie($request->get('results'));
         // Necesito unificar las búsquedas y usarlas tanto en activos como inactivos
 
-        $code     = $request->get('code');
+        $id     = $request->get('id');
         $name     = $request->get('name');
         $category = $request->get('category');
         $order    = $request->get('orden');
@@ -64,12 +64,6 @@ class ArticlesController extends Controller
 
         $view = "vadmin.catalog.index";
 
-
-        if($request->orden_af)
-        {
-            $order = $request->orden_af;
-            $rowName = "name";
-        }
         
         // ---------- Order --------------
         if(!isset($order))
@@ -77,15 +71,25 @@ class ArticlesController extends Controller
             $rowName = 'id';
             $order = 'DESC';
         }
+
+        if($request->orden_af)
+        {
+            $order = $request->orden_af;
+            $rowName = "name";
+        }
+        
         
         $categories = CatalogCategory::orderBy('id', 'ASC')->pluck('name','id');  
         
-
         if($status == 0)
         {
             // Inactive Items
-            if (isset($code)) {
-                $articles = CatalogArticle::where('code', 'LIKE', "%" . $code . "%")->inactive()->paginate($pagination);
+            if ($order == 'limitados'){
+                $articles = CatalogArticle::whereRaw('catalog_articles.stock < catalog_articles.stockmin')->inactive()->paginate($pagination);
+            } elseif ($order == 'descuento'){
+                $articles = CatalogArticle::where('discount', '>', 0)->orWhere('reseller_discount', '>', '0')->inactive()->orderBy($rowName, $order)->paginate($pagination);
+            } elseif (isset($id)) {
+                $articles = CatalogArticle::where('id', $id)->inactive()->paginate($pagination);
             } elseif (isset($name)) {
                 $articles = CatalogArticle::searchName($name)->inactive()->orderBy($rowName, $order)->paginate($pagination);
             } elseif (isset($category)) {
@@ -97,18 +101,20 @@ class ArticlesController extends Controller
         else
         {
             // Active Items
-            if ($order == 'limitados') {
+            if ($order == 'descuento'){
+                $articles = CatalogArticle::where('discount', '>', 0)->orWhere('reseller_discount', '>', '0')->activeFull()->orderBy($rowName, $order)->paginate($pagination);
+            } elseif ($order == 'limitados') {
                 $articles = CatalogArticle::whereRaw('catalog_articles.stock < catalog_articles.stockmin')->paginate($pagination);
             } else {
                 // ---------- Queries ------------    
-                if (isset($code)) {
-                    $articles = CatalogArticle::where('code', 'LIKE', "%" . $code . "%")->active()->paginate($pagination);
+                if (isset($id)) {
+                    $articles = CatalogArticle::where('id', $id)->activeFull()->paginate($pagination);
                 } elseif (isset($name)) {
-                    $articles = CatalogArticle::searchName($name)->orderBy($rowName, $order)->active()->paginate($pagination);
+                    $articles = CatalogArticle::searchName($name)->orderBy($rowName, $order)->activeFull()->paginate($pagination);
                 } elseif (isset($category)) {
-                    $articles = CatalogArticle::where('category_id', $category)->active()->orderBy($rowName, $order)->paginate($pagination);
+                    $articles = CatalogArticle::where('category_id', $category)->activeFull()->orderBy($rowName, $order)->paginate($pagination);
                 } else {
-                    $articles = CatalogArticle::orderBy($rowName, $order)->active()->paginate($pagination);
+                    $articles = CatalogArticle::orderBy($rowName, $order)->activeFull()->paginate($pagination);
                 }
             }
         }

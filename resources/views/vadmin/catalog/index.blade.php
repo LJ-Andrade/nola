@@ -103,6 +103,7 @@
 						<th></th>
 						<th>Cód.</th>
 						<th>Título</th>
+						<th>Color</th>
 						<th>Stock</th>
 						<th>Stock Min.</th>
 						<th>Precio</th>
@@ -141,6 +142,9 @@
 									<input class="invisible-input" type="text"
 									onchange="setData();" onfocus="event.target.select();"
 									data-field="name" value="{{ $item->name }}">
+								</td>
+								<td>
+									{{ $item->color }}
 								</td>
 								{{--  STOCK --}}
 								<td class="StockField">

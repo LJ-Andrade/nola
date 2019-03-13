@@ -15,7 +15,7 @@
 				<span class="text-medium">Categoría:&nbsp;</span>
 				<a class="navi-link" href="#">{{ $article->category->name }}</a>
 				{{--  Article Name  --}}
-				<h2 class="text-normal">{{ $article->name }}</h2>
+				<h2 class="text-normal">{{ $article->name }} {{ $article->color }}</h2>
 			</div>
 			<div class="row product-gallery">
 				<div class="col-xs-12 col-sm-3 col-md-3 pad0">
@@ -67,7 +67,7 @@
 				<span class="text-medium">Categoría:&nbsp;</span>
 				<a class="navi-link" href="#">{{ $article->category->name }}</a>
 				{{--  Article Name  --}}
-				<h2 class="text-normal">{{ $article->name }}</h2>
+				<h2 class="text-normal">{{ $article->name }} {{ $article->color }}</h2>
 			</div>
 			
 			@if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '2')
@@ -99,8 +99,17 @@
 			<p>{{ strip_tags($article->description) }}</p>
 			<div class="row">
 				<div class="col-sm-12 descriptions">
-					<div class="item"><div class="title">Talle:</div> <span class="prop">@foreach($article->atribute1 as $atribute) {{ $atribute->name }} @endforeach</span></div>
-					<div class="item"><div class="title">Color:</div> <span class="prop">{{ $article->color }}</span></div>
+					<div class="item"><div class="title">
+						@if(count($article->atribute1) > 1) Talles:
+						@else
+						Talle:
+						@endif
+					</div> <span class="prop">@foreach($article->atribute1 as $atribute) {{ $atribute->name }} 
+							@if(!$loop->last)
+							 -
+							@endif
+						 @endforeach</span></div>
+					{{-- <div class="item"><div class="title">Color:</div> <span class="prop">{{ $article->color }}</span></div> --}}
 					<div class="item"><div class="title">Tela:</div> <span class="prop">{{ $article->textile }}</span></div>
 				</div>
 			</div>

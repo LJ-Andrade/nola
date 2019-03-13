@@ -86,7 +86,7 @@
 									{{-- ============ Title-Info ============== --}}
 									<div class="title-info">
 										<a href="{{ url('tienda/articulo/'.$article->id) }}">
-											<h3 class="product-title max-text"><b>{{ $article->name }}</b></h3>
+											<h3 class="product-title max-text"><b>{{ $article->name }} {{ $article->color }}</b></h3>
 										</a>
 										{{-- <h3 class="product-title max-text"> {{ $article->color}} |
 										@foreach($article->atribute1 as $atribute) 	{{ $atribute->name }} @endforeach
