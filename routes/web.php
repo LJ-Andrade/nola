@@ -96,7 +96,7 @@ Route::get('tienda/etiqueta/{name}', ['as' => 'store.search.tag', 'uses' => 'Sto
 
 Route::group(['prefix'=> 'tienda', 'middleware' => 'active-customer'], function() {    
     Route::get('articulo/{id}', 'Store\StoreController@show');
-    
+    Route::get('checkSizeStock', 'Store\StoreController@CheckSizeStock');
     // Customer Actions
     Route::group(['middleware'=> 'customer'], function() {
         // User Avatar

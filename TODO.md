@@ -5,6 +5,11 @@
 Cuando se borra un artículo checkear si está siendo usado en carros activos y eliminar tambien el CART ITEM.
 En el checkout sino existe hacer algo para que no se grabe al procesar la compra.
 
+- Cuando se agrega un articulo desde tienda parece no descontar stock..
+(Agregar en base de datos CartItem columna size_id)
+Archivos: CartItemController.php | show.blade.php | tienda/scripts.js
+
+
 # Nola
 
 Vadmin

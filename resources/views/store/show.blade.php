@@ -16,6 +16,7 @@
 				<a class="navi-link" href="#">{{ $article->category->name }}</a>
 				{{--  Article Name  --}}
 				<h2 class="text-normal">{{ $article->name }} {{ $article->color }}</h2>
+				<div class="code"><span class="text-medium">Código:</span> #{{ $article->id }}</div>
 			</div>
 			<div class="row product-gallery">
 				<div class="col-xs-12 col-sm-3 col-md-3 pad0">
@@ -68,6 +69,7 @@
 				<a class="navi-link" href="#">{{ $article->category->name }}</a>
 				{{--  Article Name  --}}
 				<h2 class="text-normal">{{ $article->name }} {{ $article->color }}</h2>
+				<div class="code"><span class="text-medium">Código:</span> #{{ $article->id }}</div>
 			</div>
 			
 			@if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '2')
@@ -93,51 +95,57 @@
 					<span class="h2 d-block">$ {{ $article->reseller_price }}</span>
 				@endif
 			@endif
-			<div class="mb-3"><span class="text-medium">Código:</span> #{{ $article->id }}</div>
 			{{-- Id: {{ $article->id }} <br> --}}
 			{{-- Article Description --}}
-			<p>{{ strip_tags($article->description) }}</p>
 			<div class="row">
-				<div class="col-sm-12 descriptions">
-					<div class="item"><div class="title">
-						@if(count($article->atribute1) > 1) Talles:
-						@else
-						Talle:
-						@endif
-					</div> <span class="prop">@foreach($article->atribute1 as $atribute) {{ $atribute->name }} 
-							@if(!$loop->last)
-							 -
-							@endif
-						 @endforeach</span></div>
-					{{-- <div class="item"><div class="title">Color:</div> <span class="prop">{{ $article->color }}</span></div> --}}
-					<div class="item"><div class="title">Tela:</div> <span class="prop">{{ $article->textile }}</span></div>
+				<div class="col-sm-12 description">
+					<p>{{ strip_tags($article->description) }}</p>
 				</div>
 			</div>
-			<div class="row margin-top-1x">
+			<div class="row">
 				{{-- Form --}}
-				<div class="col-sm-12 price-and-stock">
-					@if($article->status == 1)
-						@if($article->stock > 0)
-							@if(Auth::guard('customer')->check())
-							<div class="AvailableStock stock">
-								Stock disponible: {{ $article->stock }}
+				<div class="col-sm-12 atributes">
+					<div class="item">
+						<div class="sub-title">Tela: {{ $article->textile }} </div>
+					</div>
+						
+					@if($article->status == 1) @if($article->stock > 0) @if(Auth::guard('customer')->check())
+						{!! Form::open(['class' => 'AddToCart form-group item']) !!}
+							<input type="hidden" name="article_id" value="{{ $article->id }}">
+							<div class="sub-title">Talles </div>
+							<div class="item btn-group-toggle atribute-selector" data-toggle="buttons">
+								{{-- Sizes --}}
+								@foreach($article->atribute1 as $size)
+									<label class="SizeSelector btn btn-main-sm-hollow">
+										<input name="size_id" value="{{ $size->id }}" type="radio" autocomplete="off"> {{ $size->name }}
+									</label>
+								@endforeach
 							</div>
-							{{-- {!! Form::open(['class' => 'AddToCart price']) !!}	
-								{{ csrf_field() }}
-								<input type="number" min="0" max="{{ $article->stock }}" name="quantity" class="quantity-input" value="1">
-								<input type="submit" class="input-button" value="Agregar">
-								<input type="hidden" value="{{ $article->id }}" name="articleId">
-							{!! Form::close() !!} --}}
-							{!! Form::open(['class' => 'AddToCart form-group price']) !!}
+							{{-- Display Remaining Stock --}}
+							<div class="row available-stock">
+								<span class="AvailableStock action-info-container">{{-- Data from backend --}}</span>
+								
+							</div>
+							@if($article->status == 1)
+							<div class="input-with-btn">
+								<input id="MaxQuantity" class="form-control input-field short-input" name="quantity" type="number" min="1" max="{{ $article->stock }}" value="1" placeholder="1" required>
+								<input type="submit" id="AddToCartFormBtn" class="btn input-btn"" value="Agregar al carro" disabled>
+							</div>
+							@else
+								Artículo no disponible al momento
+							@endif
+							<input type="hidden" value="{{ $article->id }}" name="articleId">
+						{!! Form::close() !!}
+							{{-- {!! Form::open(['class' => 'AddToCart form-group price']) !!}
 								{{ csrf_field() }}	
 								<div class="input-with-btn">
 									<input class="form-control input-field short-input" name="quantity" type="number" min="1" max="{{ $article->stock }}" value="1" placeholder="1" required>
 									<button class="btn input-btn">Agregar al carro</button>
 								</div>
 								<input type="hidden" value="{{ $article->id }}" name="articleId">
-							{!! Form::close() !!}
+							{!! Form::close() !!} --}}
 							@else
-							<a href="{{ url('tienda/login') }}" class="btn input-btn">Comprar</a>
+								<a href="{{ url('tienda/login') }}" class="btn input-btn">Comprar</a>
 							@endif
 						@else
 							No hay stock disponible
@@ -148,9 +156,8 @@
 							
 				</div>
 			</div>
-			<hr class="mb-3">
 			<a class="back-btn" href="javascript:history.go(-1)"><i class="icon-arrow-left"></i>&nbsp;Volver a la tienda</a>
-		</div>
+		</div> {{-- Product Details --}}
 	</div>
 </div>
 	
@@ -194,4 +201,23 @@
 
 @section('scripts')
 	@include('store.components.bladejs')
+	<script>
+		$(document).ready(function(){
+			//  Check Stock
+			$('.SizeSelector').on('click', function(){
+				let size = $(this).children('input').val();
+				let route = "{{ url('tienda/checkSizeStock') }}";
+				let articleId = "{{ $article->id }}";
+				
+				checkSizeStock(route, articleId, size);
+			});
+
+			// $('.input-with-btn').on('click', function(){
+			// 	if($('#AddToCartFormBtn').prop('disabled', true)){
+			// 		$('.AvailableStock').html("Seleccioná un talle");
+			// 	}
+			// });
+
+		});
+	</script>
 @endsection

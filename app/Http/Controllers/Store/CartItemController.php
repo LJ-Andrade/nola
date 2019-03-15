@@ -8,6 +8,7 @@ use App\CartItem;
 use App\Cart;
 use App\CatalogArticle;
 use App\Traits\CartTrait;
+use App\CatalogAtribute1;
 
 class CartItemController extends Controller
 {
@@ -15,46 +16,38 @@ class CartItemController extends Controller
 
     public function store(Request $request)
     {   
+        // dd($request->all());
         // This come from Customer Model getCartAttribute()
         $activeCartId = auth()->guard('customer')->user()->cart->id;
 
         // Check if article is already stored in cart
-        $existingCartItem = CartItem::where('cart_id', $activeCartId)->where('article_id', $request->articleId)->first();
+        $existingCartItem = CartItem::where('cart_id', $activeCartId)->where('size_id', $request->size_id)->where('article_id', $request->articleId)->first();
         if(!$existingCartItem)
         {
+            // dd("No Existe, crear nuevo");
             // Create New Cart Item
             $cartItem = new CartItem();
             $cartItem->cart_id = $activeCartId;
             $cartItem->article_id = $request->articleId;
             $cartItem->quantity = $request->quantity;
-            $cartItem->size = $request->size;
-    
+            $cartItem->size_id = $request->size_id;
             $article = CatalogArticle::where('id', $request->articleId)->first();
-    
+            
             // Stock management 
             if($request->quantity > $article->stock)
-            {
                 return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible']); 
-            } 
             else 
-            {
-                // Discount Stock
-                // * Note the minus (-) sign in $request->quantity
                 $newStock = $this->updateCartItemStock($article->id, -$request->quantity);
-            }
-    
+            
             $cartItem->article_name = $article->name;
             $cartItem->color = $article->color;
-            
-            if(isset($article->atribute1->first()->name))
-            {
-                $cartItem->size = $article->atribute1->first()->name;
-            }
-
             $cartItem->textile = $article->textile;
-            try{
+            $cartItem->size = CatalogAtribute1::where('id', $request->size_id)->pluck('name')[0];
+            
+            try 
+            {
                 $cartItem->save();
-                return response()->json(['response' => 'success', 'message' => 'Producto "'. $article->name .'" agregado']); 
+                return response()->json(['response' => 'success', 'message' => 'Producto "'. $article->name .'" agregado', 'newstock' => $newStock]); 
             } 
             catch (\Exception $e) 
             {
@@ -67,7 +60,7 @@ class CartItemController extends Controller
             // dd("Stock requerido: " . $request->quantity. " Estock de artículo: ". $existingCartItem->article->stock);
             if($request->quantity > $existingCartItem->article->stock)
             {
-                return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible']); 
+                return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible', 'newstock' => $newStock]); 
             } 
             else 
             {

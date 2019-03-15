@@ -19,15 +19,16 @@
                         </div>
                     </div>
                 </div>
+                
                 @foreach($activeCart['rawdata']->items as $item)
                     <div id="Item{{ $item->id }}" class="row item">
                         <img onerror="imgError(this);" src="{{ asset($item->article->featuredImageName()) }}" alt="Product">
                         <div class="details-1">
                             <a href="{{ url('tienda/articulo/'.$item->article->id) }}">
                             @if(strlen($item->article->name) > 50)
-                                {{ substr($item->article->name, 0, 50) }}...
+                                {{ substr($item->article->name, 0, 50) }}... {{ $article->color}} ({{ $item->size }})
                             @else
-                                {{ $item->article->name }}
+                                {{ $item->article->name }} {{ $item->color}} ({{ $item->size }})
                             @endif
                             </a>
                             {{-- {{ $item->color }} | Talle: {{ $item->size }}  --}}

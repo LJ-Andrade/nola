@@ -1,0 +1,173 @@
+.btn-main-sm-hollow
+	border: 1px solid #000
+	background-color: transparent
+	color: #000
+	padding: 10px
+	height: 30px
+	margin-right: 0
+	line-height: 0.5rem
+	&:active,&:focus
+		background-color: $main-color
+	&:hover
+		background-color: #000
+		color: #fff
+
+.btn-main-sm-hollow.active
+	background-color: $main-color
+	color: #fff
+
+
+.btn:hover
+	filter: brightness(1.5)
+
+.btn-sm-round
+	height: 30px
+	padding: 0 7px
+	border-radius: 18px
+	font-size: 12px
+	line-height: 34px
+	width: 37px
+
+.btn-sm
+	padding: 2px 10px !important
+	height: 36px
+	line-height: 30px
+	font-size: 0.8rem
+
+.block-btn-hollow
+	background: transparent
+	width: 100%
+	font-size: .9rem
+	color: #616161
+	border: 1px solid #ccc
+	padding: 4px 10px
+	line-height: 30px
+	font-size: 0.9rem
+	@include transition(0.2s)
+	i
+		margin-right: 10px
+	&:hover
+		background-color: $main-color
+		color: #fff
+		cursor: pointer
+
+.btn-main
+	background-color: $main-color
+	color: #fff
+	&:hover
+		color: #fff
+	
+.btn-main-sm
+	background-color: $main-color
+	color: #fff
+	padding: 0px 10px
+	height: 30px
+	line-height: 0.5rem
+	font-size: 0.7rem
+	&:hover
+		color: #fff
+	
+.btn-green
+	background-color: $green
+	color: #000
+
+.btn-blue
+	background-color: $blue
+	color: #fff
+	&:hover
+		opacity: .9
+		color: #f9f9f9
+
+.button-and-loader
+	@include flex-center-left()
+
+.btn-wishlist
+	height: 36px
+
+.btnIcon
+	// background-color: $lblue
+	border: 1px solid #ccc
+	padding: 4px 14px 9px
+	margin-bottom: 2px
+	color: #383838
+	@include transition(0.2s)
+	i
+		font-size: 0.9rem
+		line-height: 1px
+	&:hover
+		opacity: .6
+
+.icon-only-btn
+	border: 0
+	background: 0
+	font-size: 1.2rem
+	@include transition(0.2s)
+	&:hover
+		filter: brightness(2)
+		font-size: 1.1rem
+		cursor: pointer
+
+.icon-btn-small
+	border: 0
+	background: 0
+	font-size: 1rem
+	@include transition(0.2s)
+	&:hover
+		filter: brightness(2)
+		cursor: pointer
+
+
+.small-btn-and-input
+	.quantity-input
+		margin-right: 0
+		width: 45px
+		height: 34px
+		border: 1px solid #8e8e8e
+		border-right: 0
+		border-radius: 0
+		box-shadow: 0 0 0
+		text-align: center
+		margin-right: -4px
+	.input-button
+		background: #fff
+		border: 1px solid #8e8e8e
+		padding: 6px 10px
+		height: 34px
+		border-radius: 0
+		@include transition(0.2s)
+		&:hover
+			background: $main-color
+			color: #fff
+
+.input-with-btn
+	display: flex
+	position: relative
+	.input-field
+		flex: 1
+		border-radius: 5px 0px 0px 5px
+	.short-input
+		width: 100px
+	.input-btn
+		background: transparent
+		white-space: nowrap
+		border: 1px solid #383838
+		border-left: 0
+		border-radius: 0px 5px 5px 0px
+		margin: 0
+		&:hover
+			background-color: $main-color
+			color: #fff
+
+@media (max-width: 415px)
+	.input-with-btn-mobile
+		display: block
+		.small-input
+			width: 60px
+			text-align: center
+		.input-btn
+			background: transparent
+			border: 1px solid #383838
+			border-top: 0
+			border-radius: 0
+			width: 60px
+			height: 35px

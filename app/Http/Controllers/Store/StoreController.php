@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\View;
 use App\CatalogCategory;
 use App\CatalogArticle;
-use App\CatalogImage;
 use App\CatalogAtribute1;
 use App\CatalogTag;
 use App\CatalogFav;
@@ -24,7 +24,6 @@ use App\Settings;
 use Cookie;
 use PDF;
 use App\Traits\CartTrait;
-use Illuminate\Support\Facades\View;
 use Mail;
 use App\Mail\SendMail;
 use MP;
@@ -209,6 +208,7 @@ class StoreController extends Controller
     public function show(Request $request)
     {
         $article = CatalogArticle::findOrFail($request->id);
+
         $user = auth()->guard('customer')->user();
 
         if($user)
@@ -231,6 +231,18 @@ class StoreController extends Controller
             ->with('user', $user);
     }
 
+    //  Check stock of article
+    public function CheckSizeStock(Request $request)
+    {
+        // dd($request->all());
+        $article = CatalogArticle::findOrFail($request->articleId);
+        return response()->json(['response' => 'success', 
+                                 'message' => 'Pedido de stock',
+                                 'stock' => $article->stock
+                                 ]);
+        
+        // dd($article);
+    }
     /*
     |--------------------------------------------------------------------------
     | SHOP and CHECKOUT

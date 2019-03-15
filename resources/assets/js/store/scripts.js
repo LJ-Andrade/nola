@@ -161,6 +161,36 @@ window.openFilters = function () {
 |--------------------------------------------------------------------------
 */
 
+// Check Stock 
+window.checkSizeStock = function (route, articleId, size) {
+    // console.log(route + " | " + articleId + " | " + size);
+    const submitButton = $('#AddToCartFormBtn');
+    $.ajax({
+        url: route,
+        method: 'GET',
+        dataType: 'JSON',
+        data: {articleId: articleId, size: size},
+        success: function (data) {
+            console.log(data);
+            if (data.stock > 0) {
+                $('.AvailableStock').html("Stock disponible: " + data.stock);
+                submitButton.prop('disabled', false);
+            } else if (data.stock <= 0) {
+                $('.AvailableStock').html("No hay stock al momento");
+                submitButton.prop('disabled', true);
+            }
+        },
+        error: function (data) {
+            $('.AvailableStock').html("Producto no disponible");
+            submitButton.prop('disabled', true);
+            // $('#Error').html(data.responseText);
+            console.log("Error en checkSizeStock()");
+            console.log(data);
+            // location.reload();
+        }
+    });
+}
+
 
 window.sumAllItems = function () {
     sum = 0;
