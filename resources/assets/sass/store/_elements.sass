@@ -566,7 +566,7 @@ ul.pagination
 							box-shadow: 0 0 0
 							text-align: center
 							margin-right: -4px
-						.input-button
+						.input-button,.input-select
 							background: #fff
 							border: 1px solid #8e8e8e
 							padding: 6px 10px
@@ -576,6 +576,9 @@ ul.pagination
 							&:hover
 								background: $main-color
 								color: #fff
+						.input-select
+							margin-right: -3px
+							border-right: 0
 						.form-group
 							margin-bottom: 0
 					.col
@@ -696,9 +699,16 @@ ul.pagination
 		transform: rotate(45deg)
 		text-align: center
 
+// MODAL
+
+.modal-dialog
+	.modal-content
+		border-radius: 0
+		text-align: center !important
 
 
-// FAVOURITES 
+
+// FAVORITES 
 .fa-icon
 	&:before
 	font-family: $fa-icon

@@ -145,12 +145,30 @@
 												data-id="{{ $article->id }}" data-toggle="tooltip" title="Agregar a Favoritos">
 											</a>
 											@endif --}}
+											{{-- ADD TO CART | SIZES AND QUANTITY SELECTOR --}}
 											@if(Auth::guard('customer')->check())
 												{!! Form::open(['class' => 'AddToCart price']) !!}	
 													{{ csrf_field() }}
 													<input type="number" min="1" max="{{ $article->stock }}" name="quantity" class="quantity-input" value="1"
 													data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $article->stock }}">
+													{{-- If single size --}}
+													@if(count($article->atribute1) == 1 )  
+														<select class="input-select" disabled>
+															@foreach($article->atribute1 as $size)
+																<option value="{{ $size->id}}">{{ $size->name }}</option>
+															@endforeach
+														</select>
+														<input type="hidden" value="{{ $article->atribute1->first()->id }}" name="size_id">
+													@else
+													{{-- If multiple sizes --}}
+														<select name="size_id" class="input-select">
+															@foreach($article->atribute1 as $size)
+																<option value="{{ $size->id}}">{{ $size->name }}</option>
+															@endforeach
+														</select>
+													@endif
 													<input type="submit" class="input-button" value="Agregar" data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $article->stock }}">
+													
 													<input type="hidden" value="{{ $article->id }}" name="articleId">
 												{!! Form::close() !!}
 											@else
@@ -177,11 +195,13 @@
 			</div>
 		</div>
 	</div>
+
 	<div id="Error"></div>
 @endsection
 
 @section('scripts')
 	@include('store.components.bladejs')
+
 @endsection
 
 

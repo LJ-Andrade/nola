@@ -124,7 +124,6 @@
 							{{-- Display Remaining Stock --}}
 							<div class="row available-stock">
 								<span class="AvailableStock action-info-container">{{-- Data from backend --}}</span>
-								
 							</div>
 							@if($article->status == 1)
 							<div class="input-with-btn">
@@ -217,7 +216,6 @@
 			// 		$('.AvailableStock').html("Seleccioná un talle");
 			// 	}
 			// });
-
 		});
 	</script>
 @endsection

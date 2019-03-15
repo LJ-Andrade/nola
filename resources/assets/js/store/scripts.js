@@ -45,16 +45,25 @@ window.checkoutSidebar = function (state) {
     const sidebar = $('.CheckoutCart');
     const wrapper = $('.main-wrapper');
 
+    // Check if layout need to be fixed in order to not have squished cols.
+    let fixListLayout = false;
+    if ($(window).width() < 1645 && $(window).width() > 1200) 
+        fixListLayout = true;
+
     const show = function () {
         // New cart sidebar
         sidebar.addClass('active');
         wrapper.addClass('allow-sidebar');
+        if(fixListLayout)
+            $('.articles-container .article').removeClass('col-xl-2').addClass('col-xl-3');
     }
-
+    
     const hide = function () {
         // New cart sidebar
         sidebar.removeClass('active');
         wrapper.removeClass('allow-sidebar');
+        if(fixListLayout)
+            $('.articles-container .article').addClass('col-xl-2').removeClass('col-xl-3');
     }
 
 
@@ -261,10 +270,11 @@ window.addToCart = function (route, data) {
             }
         },
         error: function (data) {
-            $('#Error').html(data.responseText);
-            console.log("Error en addtoCart()");
+            // $('#Error').html(data.responseText);
             // location.reload();
+            console.log("Error en addtoCart()");
             console.log(data);
+            toast_success('Ups!', 'Ha ocurrido un error: <b>' + data.responseJSON['message'] + '</b>', 'bottomCenter');
         }
     });
 }
