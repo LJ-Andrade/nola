@@ -201,7 +201,6 @@
 
 @section('scripts')
 	@include('store.components.bladejs')
-
 @endsection
 
 
