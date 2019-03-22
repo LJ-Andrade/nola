@@ -99,7 +99,13 @@
 				@slot('title', 'Listado de artículos de la tienda')
 				@slot('tableTitles')
 					@if(!$articles->count() == '0')
-						<th class="w-50"></th>
+						<th>
+							<label class="custom-control custom-checkbox list-checkbox">
+								<input type="checkbox" class="Select-All-To-Delete custom-control-input row-checkbox">
+								<span class="custom-control-indicator"></span>
+								<span class="custom-control-description"></span>
+							</label>
+						</th>
 						<th></th>
 						<th>Cód.</th>
 						<th>Título</th>
@@ -143,9 +149,14 @@
 									onchange="setData();" onfocus="event.target.select();"
 									data-field="name" value="{{ $item->name }}">
 								</td>
-								<td>
-									{{ $item->color }}
+								<td class="ColorField">
+									<input class="invisible-input" type="text"
+									onchange="setData();" onfocus="event.target.select();"
+									data-field="color" value="{{ $item->color }}">
 								</td>
+								{{-- <td>
+									{{ $item->color }}
+								</td> --}}
 								{{--  STOCK --}}
 								<td class="StockField">
 									<input class="invisible-input mw-50" type="number" min="0"
@@ -215,8 +226,8 @@
 			{{--  Pagination  --}}
 			<div class="inline-links">
 				<b>Resultados por página:</b>
-				<a href="{{ route('catalogo.index', ['orden' => 'ASC', 'results' => '50']) }}">50</a>
-				<a href="{{ route('catalogo.index', ['orden' => 'ASC', 'results' => '100']) }}">100</a>
+				<a href="{{ route('catalogo.index', ['orden' => 'ASC', 'results' => '50', 'status' => $status ]) }}">50</a>
+				<a href="{{ route('catalogo.index', ['orden' => 'ASC', 'results' => '100', 'status' => $status ]) }}">100</a>
 			</div>
 			{!! $articles->appends(request()->query())->render()!!}
 		</div>
@@ -234,7 +245,7 @@
 		allowEnterOnForms = true;
 		function setData()
 		{
-			dataSetter(['.NameField', '.StockField', '.StockMinField', '.PriceField', '.DiscountField', '.ResellerPriceField', '.ResellerDiscountField']);
+			dataSetter(['.NameField', '.ColorField', '.StockField', '.StockMinField', '.PriceField', '.DiscountField', '.ResellerPriceField', '.ResellerDiscountField']);
 			$(this).parent().css('background','red');
 			$('#UpdateList').removeClass('Hidden');
 		}
