@@ -11,7 +11,7 @@
 		@slot('actions')
 			{{-- Actions --}}
 			<div class="list-actions">
-				<a href="{{ route('cat_colors.create') }}" class="btn btnBlue"><i class="icon-plus-round"></i>  Nuevo Color</a>
+				<a href="{{ route('cat_colors.create') }}" class="btn btnMain"><i class="icon-plus-round"></i>  Nuevo Color</a>
 				{{-- <button id="SearchFiltersBtn" class="btn btnBlue"><i class="icon-ios-search-strong"></i></button> --}}
 				{{-- Edit --}}
 				<button class="EditBtn btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</button>

@@ -76,6 +76,7 @@ class AutocompleteController extends Controller
             {
                 $new_row['id'] = $article->id;        
                 $new_row['name'] = $article->name;
+                $new_row['color'] = $article->color;
                 $new_row['code'] = $article->code;
                 $new_row['stock'] = $article->stock;
                 

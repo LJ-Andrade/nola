@@ -187,11 +187,11 @@
 
 
 				{{-- Discountinued --}}
-				<li class="@if(app('request')->input('redirect') == 'discountinued')
+				{{-- <li class="@if(app('request')->input('redirect') == 'discountinued')
 						{{ Menu::activeMenu('catalogo') }}
 						@endif">
 						<a href="{{ route('catalogo.index', ['redirect' => 'discontinued'])  }}" class="menu-item">
-					<i class="icon-list"></i> Discontinuados</a></li>
+					<i class="icon-list"></i> Discontinuados</a></li> --}}
 				{{-- Sizes --}}
 				<li class="has-sub is-shown {{ Menu::activeMenu('cat_atribute1') }}">
 					<a href="#" data-i18n="nav.menu_levels.second_level_child.main" class="menu-item">
@@ -365,6 +365,11 @@
 						Aprobados
 					</a>
 				</li>
+				<li class="is-shown {{ Menu::activeMenu('orders') }}">
+					<a href="{{ route('orders.index', ['status' => 'Finished']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
+						Finalizados
+					</a>
+				</li>
 				<li class="is-shown {{ Menu::activeMenu('active-carts') }}">
 					<a href="{{ route('orders.index', ['status' => 'Active']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
 						<i class="icon-list"></i> 
@@ -407,20 +412,20 @@
 		</li>
 		@endif
 		{{-- MESSAGES --}}
-		<li class="{{ Menu::activeMenu('mensajes_recibidos') }}"><a href="{{ url('vadmin/mensajes_recibidos/*') }}" class="menu-item"><i class="icon-envelop"></i> Mensajes 
+		{{-- <li class="{{ Menu::activeMenu('mensajes_recibidos') }}"><a href="{{ url('vadmin/mensajes_recibidos/*') }}" class="menu-item"><i class="icon-envelop"></i> Mensajes 
 			@if($newMessages->count() > 0) 
 				<span class="tag tag-primary tag-pill float-xs-right mr-2"><span class="MessagesAmmount">{{ $newMessages->count() }}</span></span>
 			@endif
-		</a></li>
+		</a></li> --}}
 		{{-- SETTINGS --}}
 		<li class="{{ Menu::activeMenu('configuracion') }}"><a href="{{ route('vadmin.settings') }}" class="menu-item">
-			<i class="fas fa-sliders-h"></i> Configuración 
+			<i class="fas fa-sliders-h"></i> Configuraciones
 		</a></li>
 
 		{{-- TESTS --}}
-		<li class="{{ Menu::activeMenu('tests') }}"><a href="{{ route('vadmin.tests') }}" class="menu-item">
+		{{-- <li class="{{ Menu::activeMenu('tests') }}"><a href="{{ route('vadmin.tests') }}" class="menu-item">
 			<i class="fas fa-sliders-h"></i> Tests 
-		</a></li>
+		</a></li> --}}
 
 		{{-- Public sections --}}
 		<li class="navigation-header"><span data-i18n="nav.category.support">Secciones Públicas</span>

@@ -52,7 +52,6 @@
                                 </div> 
                                 <br>
                                 <div id="FormContent" class="Hidden">
-
                                     <div class="row greyed-row-form">
                                         <div class="col-md-3 form-group">
                                             <label for="">Buscar un producto</label>
@@ -235,7 +234,7 @@
             }
             else
             {
-                let inner_html = '<div class="label">#' + item.id + ' '+ item.name +'</div>';
+                let inner_html = '<div class="label">#' + item.id + ' ' + item.name + ' ' + item.color + '</div>';
                 // Multiline
                 //let inner_html = '<div class="label">#' + item.id + ' '+ item.name +'<br><div>'+ item.name +'</div></b></div>';
                 return $( "<li></li>" ).data( "item.autocomplete", item).append(inner_html).appendTo(ul);

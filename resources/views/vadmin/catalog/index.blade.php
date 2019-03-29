@@ -25,11 +25,11 @@
 				{{-- Delete --}}
 				{{-- THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER --}}
 				<input id="ModelName" type="hidden" value="catalogo">
-				@if(isset($_GET['redirect']) && $_GET['redirect'] == 'discontinued')
+				{{-- @if(isset($_GET['redirect']) && $_GET['redirect'] == 'discontinued')
 				<button class="DiscountinueBtn btn btnGreen Hidden" data-value="0"><i class="fas fa-box-open"></i> Revivir</button>
 				@else
 				<button class="DiscountinueBtn btn btnRed Hidden" data-value="1"><i class="fas fa-archive"></i> Discontinuar</button>
-				@endif
+				@endif --}}
 				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
 				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
 				{{-- If Search --}}
