@@ -326,7 +326,8 @@ function updateTotals() {
 // Submit Form
 // -------------------------------------------
 window.submitForm = function (route, target, data, action) {
-    //console.log("Ruta: " + route + " Target: " + target + " Data: " + data + "Action: "+ action);
+    console.log("Ruta: " + route + " Target: " + target + " Data: " + data + "Action: "+ action);
+    debugger;
     $.ajax({
         url: route,
         method: 'POST',
