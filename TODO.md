@@ -1,5 +1,9 @@
 # Errores - Fallas - Bugs - Glitches
 
+Hay un bug que solo parece suceder online. Cuando se elige el primer producto (con carro vacío) y se pone continuar al checkout tira un error.
+(Undefined index 0) Si se recarga la página, como el producto ya se agregó no vuelve a pasar.
+
+
 # TRABAJANDO EN - NOTAS
 
 Cuando se borra un artículo checkear si está siendo usado en carros activos y eliminar tambien el CART ITEM.

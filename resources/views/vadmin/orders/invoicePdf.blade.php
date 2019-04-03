@@ -39,7 +39,7 @@
                         <tr class="content">
                             {{-- <td>#{{ $item->article->code }}</td> --}}
                             <td>x {{ $item->quantity }}</td>
-                            <td>{{ $item->article->name }} (#{{ $item->article->code }})</td>
+                            <td>{{ $item->article_name }} (#{{ $item->article_id }})</td>
                             <td>
                                 {{ $item->size }} @if($item->size != '') | @endif
                                 {{ $item->color }} @if($item->color != '') | @endif
