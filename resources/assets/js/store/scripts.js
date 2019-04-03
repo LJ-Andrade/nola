@@ -260,6 +260,7 @@ window.addToCart = function (route, data) {
                 toast_success('Ok!', data.message, 'bottomCenter', '', 2500);
                 updateTotals();
                 setItemsData();
+                console.log("Setting Data");
                 setTimeout(function () {
                     setItemsData();
                     sumAllItems();
@@ -327,7 +328,6 @@ function updateTotals() {
 // -------------------------------------------
 window.submitForm = function (route, target, data, action) {
     console.log("Ruta: " + route + " Target: " + target + " Data: " + data + "Action: "+ action);
-    debugger;
     $.ajax({
         url: route,
         method: 'POST',
