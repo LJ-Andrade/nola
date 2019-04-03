@@ -253,19 +253,22 @@ window.addToCart = function (route, data) {
         url: route,
         method: 'POST',
         dataType: 'JSON',
+        async: false,
         data: data,
         success: function (data) {
             console.log(data);
             if (data.response == 'success') {
                 toast_success('Ok!', data.message, 'bottomCenter', '', 2500);
                 updateTotals();
-                setItemsData();
                 console.log("Setting Data");
-                setTimeout(function () {
-                    setItemsData();
-                    sumAllItems();
-                    openCheckoutDesktop();
-                }, 100);
+                setItemsData();
+                sumAllItems();
+                openCheckoutDesktop();
+                // setTimeout(function () {
+                //     setItemsData();
+                //     sumAllItems();
+                //     openCheckoutDesktop();
+                // }, 100);
             } else if (data.response == 'warning') {
                 toast_success('Ups!', data.message, 'bottomCenter');
             }
