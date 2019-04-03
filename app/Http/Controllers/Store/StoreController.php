@@ -434,8 +434,6 @@ class StoreController extends Controller
         return $initPoint;
     }
     
-    
-
 
     public function updateItemsQuantities($data)
     {

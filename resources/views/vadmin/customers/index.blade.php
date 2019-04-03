@@ -71,9 +71,13 @@
 				@slot('title', 'Clientes')
 				@slot('tableTitles')
 					@if(!$items->isEmpty())
-						@if(Auth::guard('user')->user()->role <= 2)
-						<th class="w-50"></th>
-						@endif
+						<th>
+							<label class="custom-control custom-checkbox list-checkbox">
+								<input type="checkbox" class="Select-All-To-Delete custom-control-input row-checkbox">
+								<span class="custom-control-indicator"></span>
+								<span class="custom-control-description"></span>
+							</label>
+						</th>
 						<th>Nombre (Usuario)</th>
 						<th>Email</th>
 						<th>Registro</th>
