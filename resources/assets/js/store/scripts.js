@@ -253,7 +253,6 @@ window.addToCart = function (route, data) {
         url: route,
         method: 'POST',
         dataType: 'JSON',
-        async: false,
         data: data,
         success: function (data) {
             console.log(data);

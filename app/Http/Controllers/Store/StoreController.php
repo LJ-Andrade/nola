@@ -437,9 +437,7 @@ class StoreController extends Controller
 
     public function updateItemsQuantities($data)
     {
-        $message = '';
-        dd($data);
-        
+        $message = '';        
         foreach($data['data'] as $item)
         {
             $cartItem = CartItem::findOrFail($item['id']);
