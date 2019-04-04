@@ -237,8 +237,10 @@ window.setItemsData = function () {
         // Update display total item price
         total = price * quantity;
         $('.' + id + '-TotalItemPrice').html(total);
-
+        
         itemData.push(item);
+
+        console.log(item);
     });
     // Update Total
     console.info(itemData);
@@ -253,13 +255,18 @@ window.addToCart = function (route, data) {
         url: route,
         method: 'POST',
         dataType: 'JSON',
+        async: false,
         data: data,
         success: function (data) {
-            console.log(data);
-            if (data.response == 'success') {
+            if (data.response == 'first-item')
+            {
+                console.log("Reloading");
+                location.reload();
+            }
+            else if (data.response == 'success') 
+            {
                 toast_success('Ok!', data.message, 'bottomCenter', '', 2500);
                 updateTotals();
-                console.log("Setting Data");
                 setItemsData();
                 sumAllItems();
                 openCheckoutDesktop();
@@ -268,7 +275,9 @@ window.addToCart = function (route, data) {
                 //     sumAllItems();
                 //     openCheckoutDesktop();
                 // }, 100);
-            } else if (data.response == 'warning') {
+            } 
+            else if (data.response == 'warning') 
+            {
                 toast_success('Ups!', data.message, 'bottomCenter');
             }
         },
@@ -294,7 +303,6 @@ window.removeFromCart = function (route, id, quantity, div, action) {
         data: { itemid: id, quantity: quantity, action: action, method: 'ajax' },
         success: function (data) {
             if (data.response == 'cart-removed') {
-                console.log(data);
                 updateTotals();
                 window.location = window.location.href.split("?")[0];
                 setItemsData();
@@ -302,7 +310,6 @@ window.removeFromCart = function (route, id, quantity, div, action) {
                 $(div).hide(100);
                 $(div).remove();
                 updateTotals();
-                console.log(div);
                 setItemsData();
             }   
         },

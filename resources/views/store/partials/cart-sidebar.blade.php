@@ -15,7 +15,8 @@
                             Total: <b>$<span>{{ $activeCart['cartTotal'] }}</span></b></div>
                         <div class="button">
                             {{-- <button class="SubmitDataBtn main-btn-sm" type="button">Continuar <i class="fa fa-arrow-right"></i></button> --}}
-                            <a href="{{ route('store.checkout')}}" class="main-btn-sm">Continuar <i class="fa fa-arrow-right"></i></a>
+                            {{-- <a href="{{ route('store.checkout')}}" class="main-btn-sm">Continuar <i class="fa fa-arrow-right"></i></a> --}}
+                            <button type="button" class="SubmitDataBtn main-btn-sm">Continuar <i class="fa fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
