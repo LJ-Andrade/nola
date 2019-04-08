@@ -9,7 +9,7 @@
 	<div class="site-branding">
 		<div class="inner">
 			<!-- Site Logo-->
-			<a class="site-logo" href="{{ url('/') }}"><img src="{{ asset('images/logos/app-logo.png') }}" alt="Logo"></a>
+			<a class="site-logo" href="{{ url('/') }}"><img src="{{ asset('images/app/app-logo.png') }}" alt="Logo"></a>
 		</div>
 	</div>
 	<!-- Main Navigation-->

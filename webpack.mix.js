@@ -23,7 +23,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
     // Store
     .js('resources/assets/js/store/scripts.js', 'public/js')
-    .sass('resources/assets/sass/store/store-custom.sass', 'public/css')
+    .sass('resources/assets/sass/store/store-styles.sass', 'public/css')
     .options({
         processCssUrls: false,
         outputStyle: 'compressed'

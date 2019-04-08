@@ -70,6 +70,13 @@ class RegisterController extends Controller
             'username' => 'required|string|max:20|unique:customers',
             'email' => 'required|string|email|max:255|unique:customers',
             'password' => 'required|string|min:6|confirmed',
+        ],[
+            'name.required'        => 'Debe ingresar su nombre',
+            'surname.required'     => 'Debe ingresar su apellido',
+            'username.required'    => 'Debe ingresar un nombre de usuario',
+            'username.max'         => 'El nombre de usuario puede contener hasta 20 caracteres',
+            'username.unique'      => 'El nombre de usuario ya existe, debe elegir otro',
+            'email.unique'         => 'Ya hay un usuario con el email ingresado, debe seleccionar otro email'        
         ]);
     }
         
@@ -142,7 +149,7 @@ class RegisterController extends Controller
             {
                 if(strlen($request->cuit) != 11)
                 {
-                    return redirect()->back()->withErrors('El CUIT debe tener 11 números');
+                    return redirect()->back()->withInput()->withErrors('El CUIT debe tener 11 números');
                 }
             }
 
@@ -150,7 +157,7 @@ class RegisterController extends Controller
             {
                 if(strlen($request->dni) != 8)
                 {
-                    return redirect()->back()->withErrors('El DNI debe tener 8 números');
+                    return redirect()->back()->withInput()->withErrors('El DNI debe tener 8 números');
                 }
             }
 
