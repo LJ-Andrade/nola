@@ -1,0 +1,37 @@
+.home-items
+    padding: 70px 0
+    .item
+        display: inline-flex
+        align-items: center
+        border-right: 1px solid #ccc
+        &:last-child
+            border: 0
+    img
+        margin-right: 10px
+        width: 50px
+        max-width: 100%
+        max-height: 100%
+
+
+@media (min-width: 1070px)
+    .home-items .item
+        padding-left: 90px
+
+// @media (max-width: 768px)
+//     .home-items .item
+//         width: 33.33%
+
+
+@media (max-width: 768px) and (min-width:613px)
+    .home-items .item
+        width: 33.33%
+
+@media (max-width: 612px)
+    .home-items .item
+        margin-left: 20%
+        border: 0
+        margin-bottom: 10px
+
+@media (max-width: 400px)
+    .home-items .item
+        margin-left: 10%

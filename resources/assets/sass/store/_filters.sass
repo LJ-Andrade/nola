@@ -1,8 +1,93 @@
+.store-filters
+	display: block
+	text-align: center
+	margin-bottom: 50px
+	ul.filters-navigation
+		list-style: none
+		display: inline-flex
+		margin: 0
+		padding: 0
+		@include transition(0.2s)
+		li
+			@include transition(0.2s)
+			padding: 5px 30px
+			border: 1px solid #383838
+			border-right: 0
+			@include transition(0.2s)
+			&:last-child
+				border-right: 1px solid #383838
+			&:hover
+				background-color: $color-2
+				color: #fff
+				cursor: pointer
 
-// ------------- Horizontal Filters --------------- //
+	.filters-container
+		ul.filters-items
+			background-color: $color-2
+			padding: 30px 48px 40px
+			width: 100%
+			display: none
+			opacity: 0
+			li
+				border-bottom: 1px solid #fff
+				margin-right: 15px
+				display: inline
+				line-height: 2.7rem
+				a
+					color: #fff 
+					font-family: $font1
+					font-size: 1rem
+					text-transform: uppercase
+					font-weight: 300
+		ul.filter-form
+			width: 100%
+			form
+				@include flex-center
+				margin-bottom: 0
+				.search-input
+					position: relative
+					input
+						width: 400px
+						border: 0
+						border-bottom: 1px solid #ccc
+						border-radius: 0
+						max-width: 100%
+						background-color: transparent
+						color: #fff
+						font-size: 1.2rem
+						font-weight: 300
+					button
+						position: absolute
+						right: 0
+						top: 0
+						background-color: transparent
+						border: 0
+						color: #fff
+						height: 100%
+				
+		ul.filter-active
+			// @include flex-center
+			display: block
+			opacity: 1
+		.close-filter
+			position: absolute
+			top: 44px
+			right: 30px
+			color: #fff
+			font-size: 1.2rem
+			font-weight: 300
+			@include transition(0.2s)
+			&:hover
+				cursor: pointer
+				font-weight: 600
+
+@media (max-width: 768px)
+	.search-filters
+		display: flex
+
 
 .search-filters
-	display: flex
+	display: none
 	flex-wrap: nowrap
 	height: 55px
 	max-width: 100%

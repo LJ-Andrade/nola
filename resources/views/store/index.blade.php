@@ -1,17 +1,37 @@
 @extends('store.partials.main')
 
+@section('styles')
+	<link rel="stylesheet" href="{{ asset('plugins/owl/assets/owl.carousel.min.css') }}">
+@endsection
+
 @section('header-image')
+	<div class="owl-carousel">
+		<img src="{{ asset('images/web/home-banner.jpg')}}" alt="Klekas Home Banner">
+	</div>
 @endsection
 
 @section('content')
-
 	<div id="main" class="main-container container-fluid padding-bottom-3x mb-1">
+		{{-- Home Items --}}
+		<div class="container">
+			<div class="row home-items">
+				<div class="col-xs-12 col-md-4 item">
+					<img src="{{ asset('images/web/icons/home-icon-1.png')}}" alt="Card Icon">
+					<div class="text">Showroom en CABA <br> con cita previa</div>
+				</div>
+				<div class="col-xs-12 col-md-4 item">
+					<img src="{{ asset('images/web/icons/home-icon-2.png')}}" alt="Card Icon">
+					<div class="text">Envíos a todo el Páís</div>
+				</div>
+				<div class="col-xs-12 col-md-4 item">
+					<img src="{{ asset('images/web/icons/home-icon-3.png')}}" alt="Card Icon">
+					<div class="text">Sitio seguro <br> Protejemos todos tus datos</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			{{-- col-xs-12 col-lg-9 col-sm-8 col-md-8 --}}
 			<div id="MainContent" class="col-xs-12 col-sm-12">
-				<div class="index-header">	
-					<img src="{{ asset('images/web/home-banner.jpg') }}" alt="Home Banner">
-				</div>
 				<!-- Products Grid -->
 				@include('store.partials.filterbar')	
 				<div class="row articles-container">
@@ -201,6 +221,51 @@
 
 @section('scripts')
 	@include('store.components.bladejs')
+	<script type="text/javascript" src="{{ asset('plugins/owl/owl.carousel.min.js') }}" ></script>
+	<script>
+		$(document).ready(function(){
+			$('.owl-carousel').owlCarousel({
+				stagePadding: 0,
+				items: 1,
+				loop: true,
+				margin: 0,
+				singleItem: true,
+				nav: false,
+				dots: false,
+				navText: [
+					// "<i class='fa fa-caret-left'></i>",
+					// "<i class='fa fa-caret-right'></i>"
+				],
+				dots:true
+			});
+		});
+
+		// Open Filters On Hover
+		// $('.filter-nav-item').hover(
+		// 	function() {
+		// 		let filterId = $(this).data('name');
+		// 		console.log('#'+filterId);
+		// 		$('.filters-items').removeClass('filter-active');
+		// 		$('#'+filterId).addClass('filter-active');
+
+		// 	}, function() {
+		// 		// let data = $(this).data();
+		// 		// $('.filters-items').removeClass('filter-active');
+				
+		// 	}
+		// );
+
+		$('.filter-nav-item').on('click', function(){
+			let filterId = $(this).data('name');
+			$('.filters-items').removeClass('filter-active');
+			$('#'+filterId).addClass('filter-active');
+		});
+
+		$('.close-filter').on('click', function(){
+			$('.filters-items').removeClass('filter-active');
+		});
+
+	</script>
 @endsection
 
 

@@ -22,7 +22,7 @@
 		<link rel="stylesheet" media="screen" href="{{ asset('plugins/IziToast/iziToast.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/all.css') }}">
 		<!-- Main Template Styles-->
-		<link rel="stylesheet" media="screen" href="{{ asset('css/store-custom.css') }}">
+		<link rel="stylesheet" media="screen" href="{{ asset('css/store-styles.css') }}">
 		@yield('styles')
 		<!-- Modernizr-->
 		<script src="{{ asset('store-ui/js/modernizr.min.js') }}"></script>
@@ -44,7 +44,7 @@
 			
 			{{-- Checkout Sidebar --}}
 			@include('store.partials.cart-sidebar')
-			<div class="container-fluid custom-page-title pad0">
+			<div class="container-fluid header-image">
 				@yield('header-image')
 			</div>
 			
