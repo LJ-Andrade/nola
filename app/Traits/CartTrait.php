@@ -4,6 +4,7 @@ namespace App\Traits;
 use App\CatalogArticle;
 use App\CatalogFav;
 use App\Cart;
+use App\CartItem;
 use App\Settings;
 use App\Mail\SendMail;
 use Mail;
@@ -80,6 +81,13 @@ trait CartTrait {
                 $totalItems = '0';
                 foreach($cart->items as $item)
                 {
+                    // If article is discontinued, delete it.
+                    if(!$item->article)
+                    {
+                        $item = CartItem::where('article_id', $item['article_id'])->first();
+                        $item->delete();
+                    }
+
                     $totalItems += $item->quantity;
                 }
                 $goalQuantity = $minQuantity - $totalItems;
@@ -112,10 +120,17 @@ trait CartTrait {
         if($group == '3')
         {
             foreach($items as $item) {
-                if($item->article->reseller_discount > '0'){
-                    $result += calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount) * $item->quantity;
-                } else {
-                    $result += $item->article->reseller_price * $item->quantity;
+                if($item->article)
+                {
+                    if($item->article->reseller_discount > '0'){
+                        $result += calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount) * $item->quantity;
+                    } else {
+                        $result += $item->article->reseller_price * $item->quantity;
+                    }
+                }
+                else
+                {
+                    $result = '0';
                 }
             }
         } 

@@ -48,7 +48,7 @@ class OrdersController extends Controller
                 $items = Cart::searchStatus($request->status)->orderBy('created_at', 'DESC')->paginate($pagination);
             }
         } else {
-            $items = Cart::orderBy('created_at', 'DESC')->where('status', '=','Process')->paginate($pagination);
+            $items = Cart::orderBy('created_at', 'DESC')->where('status', '=','Process')->active()->paginate($pagination);
         }
         
 

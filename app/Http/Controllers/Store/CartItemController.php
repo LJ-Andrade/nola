@@ -47,7 +47,7 @@ class CartItemController extends Controller
             try 
             {
                 $cartItem->save();
-                return response()->json(['response' => 'success', 'message' => 'Producto "'. $article->name .'" agregado', 'newstock' => $newStock]); 
+                return response()->json(['response' => 'success', 'articleId' => $article->id, 'message' => 'Producto "'. $article->name .'" agregado', 'newstock' => $newStock]); 
             } 
             catch (\Exception $e) 
             {
@@ -74,7 +74,8 @@ class CartItemController extends Controller
             try
             {
                 $existingCartItem->save();
-                return response()->json(['response' => 'success', 'message' => 'Producto "'. $existingCartItem->article->name .'" agregado']); 
+                return response()->json(['response' => 'success', 'articleId' => $existingCartItem->id, 'quantity' => $existingCartItem->quantity,
+                'message' => 'Producto "'. $existingCartItem->article->name .'" agregado']); 
             } 
             catch (\Exception $e) 
             {

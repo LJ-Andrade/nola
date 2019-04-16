@@ -8,7 +8,7 @@
             <a class="cursor-pointer top-right-element" onclick="closeElement('#ResellerCTA');">X</a>
             <h3>Querés vender al por mayor?</h3>
             {{-- RESELLER BOX REQUIRED Edisplay: none;--}}            
-            <button type="button" onclick="openResellerRegistration();" class="btn btn-primary btn-block">Registrarme como mayorísta</button>
+            <a href="{{ route('customer.register-reseller') }}"  class="btn btn-primary btn-block">Registrarme como mayorísta</a>
         </div>
     </div>
 	<div class="row centered-form">
@@ -17,7 +17,7 @@
             <input id="IsResellerCheckbox" type="checkbox" name="isreseller" class="Hidden">
             {{ csrf_field() }}
             <div class="NormaClientTitle">
-                <h3 class="text-center">Registro de Usuario</h3>
+                <h3 class="text-center">Registro de Usuario Minorísta</h3>
             </div>
             <div class="ResellerTitle text-center" style="display: none">
                 <a class="top-right-element cursor-pointer" onClick="closeResellerRegistration();">Volver</a>
@@ -90,39 +90,9 @@
                     @endif
                 </div>
             </div>
-            {{-- RESELLER BOX REQUIRED --}}
-            <div id="ResellerBox">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Provincia</label>
-                            {!! Form::select('geoprov_id', $geoprovs, null,
-                            ['class' => 'GeoProvSelect IfResellerEnable form-control', 'placeholder' => 'Seleccione una opción', 
-                            'disabled' => 'disabled', 'required' => '']) !!}
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Localidad</label>
-                            <select id='GeoLocsSelect' name="geoloc_id" 
-                                data-actualloc="" 
-                                data-actuallocid="" 
-                                class="GeoLocsSelect IfResellerEnable form-control " disabled="disabled" required>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>CUIT (Sin guiones)</label>
-                        <input type="number" name="cuit" class="IfResellerEnable form-control round" min="0" placeholder="Ingrese su número de CUIT" disabled="disabled" required>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Teléfono</label>
-                        <input type="text" name="phone" class="IfResellerEnable form-control round" placeholder="Ingrese teléfono" disabled="disabled" required>
-                    </div>
-                </div>
-            </div>
+            <input type="hidden" value="null" name="cuit">
+            <input type="hidden" value="null" name="dni">
+            <input type="hidden" value="2" name="group">
             {{-- Submit --}}
             <button type="submit" class="btn btn-primary btn-block"><i class="icon-unlock"></i> Registrarse</button>
             <div class="bottom-text">Ya tiene cuenta? | <a href="{{ route('customer.login') }}">Ingresar</a></div>
@@ -134,10 +104,4 @@
     
 @section('scripts')
     @include('store.components.bladejs')
-    <script>
-        if(getParam("mostrar") == 'mayorista')
-        {
-            openResellerRegistration();
-        };
-    </script>
 @endsection

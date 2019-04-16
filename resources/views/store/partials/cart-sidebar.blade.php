@@ -14,14 +14,12 @@
                             <br>
                             Total: <b>$<span>{{ $activeCart['cartTotal'] }}</span></b></div>
                         <div class="button">
-                            {{-- <button class="SubmitDataBtn main-btn-sm" type="button">Continuar <i class="fa fa-arrow-right"></i></button> --}}
-                            {{-- <a href="{{ route('store.checkout')}}" class="main-btn-sm">Continuar <i class="fa fa-arrow-right"></i></a> --}}
                             <button type="button" class="SubmitDataBtn main-btn-sm">Continuar <i class="fa fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
-                
                 @foreach($activeCart['rawdata']->items as $item)
+                    @if($item->article)
                     <div id="Item{{ $item->id }}" class="row item">
                         <img onerror="imgError(this);" src="{{ asset($item->article->featuredImageName()) }}" alt="Product">
                         <div class="details-1">
@@ -64,13 +62,27 @@
                         <div class="input-with-btn quantity">
                             {{-- Send this data to JSON via js with .Item-Data class --}}
                             <input class="Item-Data small-input under-element" name="data" type="number"  
-                            min="1" max="{{ $item->quantity + $item->article->stock }}" value="{{ $item->quantity }}" required="" 
-                            data-price="{{$articlePrice}}" data-id="{{ $item->id }}" data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $item->article->stock }}">
+                            min="1" max="{{ $item->quantity + $item->article->stock }}" value="{{ $item->quantity }}" 
+                            data-price="{{$articlePrice}}" data-id="{{ $item->id }}" 
+                            title="Stock máximo {{ $item->article->stock }}" data-toggle="tooltip" data-placement="top" required="">
                         </div>
                         <div class="delete-item">
                             <a onclick="removeFromCart('{{ route('store.removeFromCart') }}', {{ $item->id }}, {{ $item->quantity }}, '#Item'+{{ $item->id }}, 'reload');"><i class="far fa-trash-alt"></i></a>
                         </div>
                     </div>{{-- / .item --}}
+                    @else
+                    {{-- DISCONTINUED ARTICLES --}}
+                    {{-- <div id="Item{{ $item->id }}" class="row item">
+                        <img onerror="imgError(this);" src="{{ asset('images/gen/catalog-gen.jpg') }}" alt="Product">
+                        <div class="details-1">
+                            Artículo discontinuado
+                        </div> 
+                        <input class="Item-Data small-input under-element" name="data" type="number">
+                        <div class="delete-item">
+                            <a onclick="removeFromCart('{{ route('store.removeFromCart') }}', {{ $item->id }}, {{ $item->quantity }}, '#Item'+{{ $item->id }}, 'reload');"><i class="far fa-trash-alt"></i></a>
+                        </div>
+                    </div> --}}
+                    @endif
                 @endforeach
             <div class="update-btn">
                 <button class="UpdateDataBtn block-btn-hollow"><i class="fas fa-sync"></i> Calcular nuevos totales</button>
@@ -86,7 +98,6 @@
             </div>
             <div class="text-right">
                 <button type="button" class="SubmitDataBtn main-btn-sm">Continuar <i class="fa fa-arrow-right"></i></button>
-                {{-- <a href="{{ route('store.checkout')}}" class="main-btn-sm">Continuar <i class="fa fa-arrow-right"></i></a> --}}
             </div>
         @else
             <div class="empty-cart">

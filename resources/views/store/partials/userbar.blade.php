@@ -31,8 +31,13 @@
                         <i class="icon-head"></i>
                     @endif --}}
                     <ul class="toolbar-dropdown">
-                        <li class="sub-menu-title"><span>Hola,</span> {{ Auth::guard('customer')->user()->name }}</li>
-                        <li><a href="{{ route('store.customer-account') }}">Cuenta</a></li>
+                        <li class="sub-menu-title">
+                            <span>Hola,</span> 
+                            @if(Auth::guard('customer')->user()->name == '') {{ Auth::guard('customer')->user()->username }}
+                            @else
+                            {{ Auth::guard('customer')->user()->name }}</li>
+                            @endif
+                             <li><a href="{{ route('store.customer-account') }}">Cuenta</a></li>
                         <li><a href="{{ route('store.customer-orders') }}">Mis Pedidos</a></li>
                         <li><a href="{{ route('store.customer-wishlist') }}">Favoritos</a></li>
                         <li class="sub-menu-separator"></li>

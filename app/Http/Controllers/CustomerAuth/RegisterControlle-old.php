@@ -65,10 +65,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
             'username' => 'required|string|max:20|unique:customers',
             'email' => 'required|string|email|max:255|unique:customers',
             'password' => 'required|string|min:6|confirmed',
         ],[
+            'name.required'        => 'Debe ingresar su nombre',
+            'surname.required'     => 'Debe ingresar su apellido',
             'username.required'    => 'Debe ingresar un nombre de usuario',
             'username.max'         => 'El nombre de usuario puede contener hasta 20 caracteres',
             'username.unique'      => 'El nombre de usuario ya existe, debe elegir otro',
@@ -78,17 +82,36 @@ class RegisterController extends Controller
         
     protected function create(array $data)
     {
-        $status = '1';
+        $status = '1'; // Active
         $group = '2'; // Min 
-        if(isset($data['group']))
-            $group = $data['group'];
+        if($data['group'] == '3'){            
+            $group = '3'; // Reseller
+        } 
         
+        $cuit = null;
+        $dni = null;
+        $phone = null;
+        $geoProvId = null;
+        $geoLocId = null;
+        if(isset($data['cuit']))       { $cuit = $data['cuit']; }
+        if(isset($data['dni']))        { $dni = $data['dni']; }
+        if(isset($data['phone']))      { $phone = $data['phone']; }
+        if(isset($data['geoprov_id'])) { $geoProvId = $data['geoprov_id']; }
+        if(isset($data['geoloc_id']))  { $geoLocId = $data['geoloc_id']; }
+
         return Customer::create([
+            'name' => $data['name'],
+            'surname' => $data['surname'],
             'username' => $data['username'],
             'email' => $data['email'],
-            'group' => $group,
+            'phone' => $phone,
             'status' => $status,
-            'password' => bcrypt($data['password'])
+            'geoprov_id' => $geoProvId,
+            'geoloc_id' => $geoLocId,
+            'cuit' => $cuit,
+            'dni' => $dni,
+            'password' => bcrypt($data['password']),
+            'group' => $group
         ]);
     }
 
@@ -103,25 +126,48 @@ class RegisterController extends Controller
             // ->with('geoprovs',$geoprovs);
     }
 
-    // public function showRegistrationFormReseller(){
-    //     $geoprovs = GeoProv::pluck('name','id');
+    public function showRegistrationFormReseller(){
+        $geoprovs = GeoProv::pluck('name','id');
         
-    //     return view('store.register-reseller')
-    //     ->with('geoprovs',$geoprovs);
-    // }
+        return view('store.register-reseller')
+        ->with('geoprovs',$geoprovs);
+    }
 
 
     public function register(Request $request)
     {
-        // dd($request->all());
+
+        // Custom Horrible Validations
         if($request->group != '2' && $request->group != '3')
+        {
             return back()->withErrors('No se ha seleccionado un tipo de usuario');
+        }
+
+        if($request->group == '3')
+        {
+            if($request->CuitOrDni == 'Cuit')
+            {
+                if(strlen($request->cuit) != 11)
+                {
+                    return redirect()->back()->withInput()->withErrors('El CUIT debe tener 11 números');
+                }
+            }
+
+            if($request->CuitOrDni == 'Dni')
+            {
+                if(strlen($request->dni) != 8)
+                {
+                    return redirect()->back()->withInput()->withErrors('El DNI debe tener 8 números');
+                }
+            }
+
+        }
 
         $this->validator($request->all())->validate();
+
         event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);
-     
         try{
             if($user->group == '3'){
                 $subject = 'Solicitud de cliente mayorísta';
@@ -132,10 +178,10 @@ class RegisterController extends Controller
             }
             // Mail::to(APP_EMAIL_1)->send(new SendMail($subject, 'SimpleMail', $message));
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            //
         }
 
         return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath())->with("message", "Bienvenid@! Gracias por registrarte!");
+                        ?: redirect($this->redirectPath());
     }
 }

@@ -8945,45 +8945,6 @@ button:focus {
   list-style: none;
 }
 
-.login-box {
-  background: #fff;
-  margin-top: 20px;
-  position: relative;
-  padding-bottom: 50px;
-}
-
-.login-box .bottom-text {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  bottom: 10px;
-  left: 0;
-}
-
-.login-box .top-left {
-  position: absolute;
-  left: 10px;
-  top: 5px;
-}
-
-.login-box .top-right {
-  position: absolute;
-  right: 10px;
-  top: 5px;
-}
-
-.login-box .error-active {
-  padding: 10px;
-  background: #D05C5C;
-  color: #fff;
-}
-
-@media (max-width: 768px) {
-  .login-box {
-    margin: 0;
-  }
-}
-
 .navbar {
   height: 65px;
   min-height: auto;
@@ -9880,23 +9841,6 @@ ul.pagination li.disabled:hover, ul.pagination li.active:hover {
   cursor: pointer;
 }
 
-.login-register-btn-mobile {
-  display: none;
-}
-
-@media (max-width: 600px) {
-  .login-register-btn-mobile {
-    display: block;
-  }
-}
-
-@media (max-width: 400px) {
-  .login-register-btn-mobile .btn {
-    margin: 0;
-    margin-bottom: 6px;
-  }
-}
-
 @media (max-width: 600px) {
   .toolbar {
     position: relative;
@@ -10308,6 +10252,69 @@ ul.pagination li.disabled:hover, ul.pagination li.active:hover {
 
 .site-footer .footer-copyright {
   padding: 0;
+}
+
+.login-box {
+  background: #fff;
+  margin-top: 20px;
+  position: relative;
+  padding-bottom: 50px;
+}
+
+.login-box .bottom-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 10px;
+  left: 0;
+}
+
+.login-box .top-left {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+}
+
+.login-box .top-right {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.login-box .error-active {
+  padding: 10px;
+  background: #D05C5C;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .group-selector {
+    text-align: center;
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-box {
+    margin: 0;
+  }
+}
+
+.login-register-btn-mobile {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .login-register-btn-mobile {
+    display: block;
+  }
+}
+
+@media (max-width: 400px) {
+  .login-register-btn-mobile .btn {
+    margin: 0;
+    margin-bottom: 6px;
+  }
 }
 
 .btn-main-sm-hollow {

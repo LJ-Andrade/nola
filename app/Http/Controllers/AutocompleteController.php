@@ -66,6 +66,7 @@ class AutocompleteController extends Controller
         
         $articles = CatalogArticle::where('name', 'LIKE', "%{$request['request']['term']}%")
         ->orWhere('code', 'LIKE', "%{$request['request']['term']}%")
+        ->active()
         ->limit(15)
         ->get();
 

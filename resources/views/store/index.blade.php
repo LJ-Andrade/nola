@@ -240,31 +240,6 @@
 			});
 		});
 
-		// Open Filters On Hover
-		// $('.filter-nav-item').hover(
-		// 	function() {
-		// 		let filterId = $(this).data('name');
-		// 		console.log('#'+filterId);
-		// 		$('.filters-items').removeClass('filter-active');
-		// 		$('#'+filterId).addClass('filter-active');
-
-		// 	}, function() {
-		// 		// let data = $(this).data();
-		// 		// $('.filters-items').removeClass('filter-active');
-				
-		// 	}
-		// );
-
-		$('.filter-nav-item').on('click', function(){
-			let filterId = $(this).data('name');
-			$('.filters-items').removeClass('filter-active');
-			$('#'+filterId).addClass('filter-active');
-		});
-
-		$('.close-filter').on('click', function(){
-			$('.filters-items').removeClass('filter-active');
-		});
-
 	</script>
 @endsection
 

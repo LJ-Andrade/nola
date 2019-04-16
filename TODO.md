@@ -1,17 +1,9 @@
 # Errores - Fallas - Bugs - Glitches
 
-Hay un bug que solo parece suceder online. Cuando se elige el primer producto (con carro vacío) y se pone continuar al checkout tira un error.
-(Undefined index 0) Si se recarga la página, como el producto ya se agregó no vuelve a pasar.
 
+ 
 
 # TRABAJANDO EN - NOTAS
-
-Cuando se borra un artículo checkear si está siendo usado en carros activos y eliminar tambien el CART ITEM.
-En el checkout sino existe hacer algo para que no se grabe al procesar la compra.
-
-- Cuando se agrega un articulo desde tienda parece no descontar stock..
-(Agregar en base de datos CartItem columna size_id)
-Archivos: CartItemController.php | show.blade.php | tienda/scripts.js
 
 
 # Nola
@@ -56,7 +48,6 @@ Seccion ABM
 Que aparezca activo
 agregar todos los datos en seccion crear cliente
 
-5 - Buscado de inactivos y discontinuados
 
 6 -  ABM de marcas
 
@@ -76,12 +67,8 @@ Opcion 2: que al llegar a las 10 prendas le haga un descuento del 40%. Me parece
 
 Cliente que pueda cambiar tipo de cliente
 
-Compra
-Posibilidad de poder comprar desde listado aunque tenga talles, si producto tiene talles abrir popup para que pueda seleccionarlos
 
-Que el color aparezca en el título (Lo toma del campo color).
 
-- Rehacer filtros de busqueda y que sean combinables.
 
  9 ) Agregar sección quienes somos
 
@@ -117,6 +104,13 @@ Y lo otro es si se puede saber cuantas personas entran por día a la página, cu
 ==============================================
 # Hecho
 
+Compra
+Posibilidad de poder comprar desde listado aunque tenga talles, si producto tiene talles abrir popup para que pueda seleccionarlos
+
+Que el color aparezca en el título (Lo toma del campo color).
+
+Hay un bug que solo parece suceder online. Cuando se elige el primer producto (con carro vacío) y se pone continuar al checkout tira un error.
+(Undefined index 0) Si se recarga la página, como el producto ya se agregó no vuelve a pasar.
 
 HECHO
 3 - Eliminar pantalla intermedia de checkout

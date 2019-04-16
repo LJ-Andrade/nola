@@ -128,7 +128,7 @@
 							@if($article->status == 1)
 							<div class="input-with-btn">
 								<input id="MaxQuantity" class="form-control input-field short-input" name="quantity" type="number" min="1" max="{{ $article->stock }}" value="1" placeholder="1" required>
-								<input type="submit" id="AddToCartFormBtn" class="btn input-btn"" value="Agregar al carro" disabled>
+								<input type="submit" id="AddToCartFormBtn" class="btn input-btn" value="Agregar al carro" disabled>
 							</div>
 							@else
 								Artículo no disponible al momento

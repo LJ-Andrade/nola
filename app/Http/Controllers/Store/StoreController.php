@@ -263,12 +263,12 @@ class StoreController extends Controller
 
     public function checkoutSetItems(Request $request)
     {
-        $updateQuantities = $this->updateItemsQuantities($request->all());
+        // $updateQuantities = $this->updateItemsQuantities($request->all());
+        $this->updateItemsQuantities($request->all());
         $activeCart = $this->activeCart();
         
         if($activeCart == null)
             return response()->json(['response' => 'error', 'message' => 'La página solicitada no existe o ha expirado']);
-            // return redirect()->route('store')->with('message', 'La página solicitada no existe o ha expirado');
 
         if(count($activeCart['rawdata']->items) == 0)
         {
@@ -304,7 +304,6 @@ class StoreController extends Controller
 
     public function processCheckout(Request $request)
     {
-        // dd($request->all());
         // Check if customer has required data completed
         $checkCustomer = $this->checkAndUpdateCustomerData(auth()->guard('customer')->user()->id, $request);
         
@@ -498,6 +497,16 @@ class StoreController extends Controller
         $customer = Customer::findOrFail($customerId);
         // $customer = Customer::where('id', $customerId)->first();
         // dd($data->all());
+        if($customer->group == '3')
+        {
+            $this->validate($data,[
+                'cuit' => 'required|int|digits:11|unique:customers,cuit,'.$customer->id
+            ],[
+                'cuit.digits' => 'El CUIT debe tener 11 números, no incluya guiones.',
+                'cuit.unique' => 'El CUIT ingresado ya existe en el sistema'
+            ]);
+
+        }
         $this->validate($data,[
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',

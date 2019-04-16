@@ -92,10 +92,7 @@ window.checkoutSidebar = function (state) {
         hide();
         return false;
     }
-
 }
-
-
 
 window.openCheckoutDesktop = function()
 {
@@ -104,46 +101,6 @@ window.openCheckoutDesktop = function()
     }
     return false;
 }
-
-
-// $(window).scroll(function (event) {
-//     var scroll = $(window).scrollTop();
-
-//     if (scroll > 125) {
-//         $('.checkout-cart').addClass('scrolled');
-//     }
-//     else {
-//         $('.checkout-cart').removeClass('scrolled');
-//     }
-// });
-
-
-// Sidebar checkout absolute
-// window.checkoutSidebar = function (action) {
-//     if (action == 'open') {
-//         $('#SideContainer').toggle(100);
-//         $('#MainOverlay').fadeIn(100);
-//     }
-//     if (action == 'close') {
-//         $('#SideContainer').toggle(100);
-//         $('#MainOverlay').fadeOut(100);
-//     }
-// }
-
-// $('#MainOverlay').click(function () {
-//     checkoutSidebar("close");
-// });
-
-// window.openFilters = function () {
-//     const filters = $('#SearchFilters');
-//     if (filters.css('display') == 'none') {
-//         filters.css('display', 'inherit');
-//     }
-//     else {
-//         filters.css('display', 'none');
-//     }
-// }
-
 
 window.openFilters = function () {
     const filters = $('#SearchFilters');
@@ -160,6 +117,18 @@ window.openFilters = function () {
     }
 
 }
+
+// Desktop Store Filters
+$('.filter-nav-item').on('click', function(){
+    let filterId = $(this).data('name');
+    $('.filters-items').removeClass('filter-active');
+    $('#'+filterId).addClass('filter-active');
+});
+
+$('.close-filter').on('click', function(){
+    $('.filters-items').removeClass('filter-active');
+});
+
 
 // Hide alerts
 // -------------------------------------------
@@ -192,7 +161,7 @@ window.checkSizeStock = function (route, articleId, size) {
         dataType: 'JSON',
         data: {articleId: articleId, size: size},
         success: function (data) {
-            console.log(data);
+            // console.log(data);
             if (data.stock > 0) {
                 $('.AvailableStock').html("Stock disponible: " + data.stock);
                 submitButton.prop('disabled', false);
@@ -234,13 +203,22 @@ window.sumDivs = function (origins, target) {
 
 // Set cart items JSON
 // -------------------------------------------
-window.setItemsData = function () {
+window.setItemsData = function(newQuantity, articleId) {
+    
     itemData = [];
-
+    
     $('.Item-Data').each(function () {
-        var id = $(this).data('id');
-        var price = $(this).data('price');
-        var quantity = $(this).val();
+        let id = $(this).data('id');
+        let price = $(this).data('price');
+        let quantity;
+        if(newQuantity != undefined && id == articleId)
+        {
+            quantity = newQuantity;
+        }
+        else
+        {
+            quantity = $(this).val();
+        }
 
         item = {}
         item['id'] = id;
@@ -251,11 +229,9 @@ window.setItemsData = function () {
         $('.' + id + '-TotalItemPrice').html(total);
         
         itemData.push(item);
-
-        console.log(item);
     });
     // Update Total
-    console.info(itemData);
+    // console.info(itemData);
     sumAllItems();
     $('#Items-Data').val(itemData);
 }
@@ -267,9 +243,10 @@ window.addToCart = function (route, data) {
         url: route,
         method: 'POST',
         dataType: 'JSON',
-        async: false,
+        async: true,
         data: data,
         success: function (data) {
+            console.log(data);
             if (data.response == 'first-item')
             {
                 console.log("Reloading");
@@ -279,14 +256,9 @@ window.addToCart = function (route, data) {
             {
                 toast_success('Ok!', data.message, 'bottomCenter', '', 2500);
                 updateTotals();
-                setItemsData();
+                setItemsData(data.quantity, data.articleId);
                 sumAllItems();
                 openCheckoutDesktop();
-                // setTimeout(function () {
-                //     setItemsData();
-                //     sumAllItems();
-                //     openCheckoutDesktop();
-                // }, 100);
             } 
             else if (data.response == 'warning') 
             {
@@ -302,8 +274,13 @@ window.addToCart = function (route, data) {
         }
     });
 }
-
  
+window.updateActiveCart = function () 
+{
+    console.log("Updating active cart");
+    updateTotals();
+    setItemsData();
+}
 
 // Remove product from cart
 // -------------------------------------------
@@ -348,7 +325,7 @@ function updateTotals() {
 // Submit Form
 // -------------------------------------------
 window.submitForm = function (route, target, data, action) {
-    console.log("Ruta: " + route + " Target: " + target + " Data: " + data + "Action: "+ action);
+    // console.log("Ruta: " + route + " Target: " + target + " Data: " + data + "Action: "+ action);
     $.ajax({
         url: route,
         method: 'POST',
