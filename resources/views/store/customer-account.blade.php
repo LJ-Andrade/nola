@@ -100,6 +100,13 @@
                              @if(Auth::guard('customer')->user()->group == '3') required @endif/>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tipo de Cliente</label>
+                            {!! Form::select('group', ['3' => 'Mayorísta', '2' => 'Minorísta'], Auth::guard('customer')->user()->group,
+                            ['class' => 'form-control', 'placeholder' => 'Seleccione una opción']) !!}
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="d-flex flex-wrap justify-content-between align-items-center">
                             <button class="btn btn-main margin-right-none" type="submit">Actualizar Datos</button>
