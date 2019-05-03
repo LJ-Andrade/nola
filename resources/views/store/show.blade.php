@@ -24,7 +24,7 @@
 						@foreach($article->images as $image)
 							<li>
 								<a href="#{{ $image->id }}">
-									<img src="{{ asset('webimages/catalogo/'. $image->name) }}" class="CheckCatalogImg" alt="Producto Bruna">
+									<img src="{{ asset('webimages/catalogo/'. $image->name) }}" class="CheckCatalogImg" alt="Producto Nola">
 								</a>
 							</li>
 							@endforeach

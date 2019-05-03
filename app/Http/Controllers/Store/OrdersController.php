@@ -115,7 +115,7 @@ class OrdersController extends Controller
         }
         else
         {
-            return $this->exportToFile($output, 'Bruna-pedidos-unificados', 'vadmin.orders.new-orders-invoice', $this->unifyNewOrders());
+            return $this->exportToFile($output, 'Nola-pedidos-unificados', 'vadmin.orders.new-orders-invoice', $this->unifyNewOrders());
         }
     }
 
@@ -196,7 +196,7 @@ class OrdersController extends Controller
     public function exportOrderXls($id)
     {   
         $order = $this->calcCartData(Cart::find($id));
-        Excel::create('Bruna-Pedido-'.$id, function($excel) use($order){
+        Excel::create('Nola-Pedido-'.$id, function($excel) use($order){
             $excel->sheet('Listado', function($sheet) use($order) { 
                 $sheet->getDefaultStyle()->getFont()->setName('Arial');
                 $sheet->getDefaultStyle()->getFont()->setSize(12);
@@ -210,7 +210,7 @@ class OrdersController extends Controller
     public function exportOrderCsv($id)
     {   
         $order = $this->calcCartData(Cart::find($id));
-        $filename = 'Bruna-Pedido-'.$id.'-Cliente-'.$order['rawdata']->customer->name.' '.$order['rawdata']->customer->surname;
+        $filename = 'Nola-Pedido-'.$id.'-Cliente-'.$order['rawdata']->customer->name.' '.$order['rawdata']->customer->surname;
         Excel::create($filename, function($excel) use($order){
             $excel->sheet('Listado', function($sheet) use($order) { 
                 $sheet->getDefaultStyle()->getFont()->setName('Arial');

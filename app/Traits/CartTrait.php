@@ -258,7 +258,7 @@ trait CartTrait {
                 $response .= $cart->customer->id;
                 $response .= $cart->customer->email;
                 $email = $cart->customer->email;
-                Mail::to($email)->send(new SendMail('Bruna Indumentaria | Carro de compra activo', 'NotifyOldCarts', $cart));
+                Mail::to($email)->send(new SendMail('Nola Indumentaria | Carro de compra activo', 'NotifyOldCarts', $cart));
                 Log::info("Eviando notificación a cliente: " . $cart->customer->name . " " . $cart->customer->surname . " (" . $cart->customer->id. ") a " . $cart->customer->email);
                 $count++;
             }

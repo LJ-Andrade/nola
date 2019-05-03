@@ -18,7 +18,7 @@ Queremos recordarte que los carritos con más de 48hs abiertos serán eliminados
 ¡Esperamos tu compra! <br>
 Saludos<br>
 <b>Noelia</b><br>
-<b>Bruna Indumentaria</b>
+<b>Nola</b>
 </center>
 
 

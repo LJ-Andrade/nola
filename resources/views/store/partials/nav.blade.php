@@ -31,6 +31,5 @@
 		<a href="{{ url('condiciones-de-compra') }}">Condiciones de Compra</a>
 		@endif
 		<a href="{{ url('como-comprar') }}">Como comprar</a> 
-		{{-- <a href="{{ route('customer.register', ['mostrar' => 'mayorista']) }}">Vendé Bruna</a> --}}
 	</div>
 </div>
