@@ -177,9 +177,6 @@
             url: "{{ url('vadmin/updateStatus/')}}/"+model+"/"+id+"",
             type: 'POST',
             dataType: 'JSON',
-            beforeSend: function(){
-                
-            },
             success: function(data){
                 console.log(data.newStatus);
             },

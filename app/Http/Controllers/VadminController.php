@@ -251,12 +251,20 @@ class VadminController extends Controller
         $model = new $model_name;
         $item = $model->find($id);
         
-        if($item->status == '0'){
+        
+        if($item->status == '0')
             $item->status = '1';
-        } else {
+        else
             $item->status = '0';
+        
+        try
+        {
+            $item->save();
         }
-        $item->save();
+        catch (\Exception $e) 
+        {
+            dd($e);
+        }
 
         return response()->json([
             "success" => true,

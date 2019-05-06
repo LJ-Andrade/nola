@@ -49,11 +49,10 @@ class ArticlesController extends Controller
 
 
     public function index(Request $request)
-    {
+    {        
         $pagination = $this->getSetPaginationCookie($request->get('results'));
-        // Necesito unificar las búsquedas y usarlas tanto en activos como inactivos
 
-        $id     = $request->get('id');
+        $id       = $request->get('id');
         $name     = $request->get('name');
         $category = $request->get('category');
         $order    = $request->get('orden');
@@ -61,10 +60,8 @@ class ArticlesController extends Controller
         $rowName = 'stock';
         if($status == null)
             $status = 1;
-
         $view = "vadmin.catalog.index";
 
-        
         // ---------- Order --------------
         if(!isset($order))
         {
@@ -77,7 +74,6 @@ class ArticlesController extends Controller
             $order = $request->orden_af;
             $rowName = "name";
         }
-        
         
         $categories = CatalogCategory::orderBy('id', 'ASC')->pluck('name','id');  
         
@@ -102,126 +98,75 @@ class ArticlesController extends Controller
         {
             // Active Items
             if ($order == 'descuento'){
-                $articles = CatalogArticle::where('discount', '>', 0)->orWhere('reseller_discount', '>', '0')->activeFull()->orderBy($rowName, $order)->paginate($pagination);
+                $articles = CatalogArticle::where('discount', '>', 0)->orWhere('reseller_discount', '>', '0')->active()->orderBy($rowName, $order)->paginate($pagination);
             } elseif ($order == 'limitados') {
                 $articles = CatalogArticle::whereRaw('catalog_articles.stock < catalog_articles.stockmin')->paginate($pagination);
             } else {
                 // ---------- Queries ------------    
                 if (isset($id)) {
-                    $articles = CatalogArticle::where('id', $id)->activeFull()->paginate($pagination);
+                    $articles = CatalogArticle::where('id', $id)->active()->paginate($pagination);
                 } elseif (isset($name)) {
-                    $articles = CatalogArticle::searchName($name)->orderBy($rowName, $order)->activeFull()->paginate($pagination);
+                    $articles = CatalogArticle::searchName($name)->orderBy($rowName, $order)->active()->paginate($pagination);
                 } elseif (isset($category)) {
-                    $articles = CatalogArticle::where('category_id', $category)->activeFull()->orderBy($rowName, $order)->paginate($pagination);
+                    $articles = CatalogArticle::where('category_id', $category)->active()->orderBy($rowName, $order)->paginate($pagination);
                 } else {
-                    $articles = CatalogArticle::orderBy($rowName, $order)->activeFull()->paginate($pagination);
+                    $articles = CatalogArticle::orderBy($rowName, $order)->active()->paginate($pagination);
                 }
             }
         }
 
-
-        // if(isset($request->redirect))
-        // {
-        //     if($request->redirect == 'stock')
-        //     {
-        //         $view = "vadmin.catalog.stock";
-        //     }
-            
-        //     if($request->redirect == 'inactive')
-        //     {
-        //         $articles = CatalogArticle::orderBy($rowName, $order)->inactive()->paginate($pagination);
-        //         return view($view)->with('articles', $articles)->with('categories', $categories);
-        //     }
-        //     elseif($request->redirect == 'discontinued')
-        //     {
-        //         $articles = CatalogArticle::orderBy($rowName, $order)->discontinued()->paginate($pagination);
-        //         return view($view)->with('articles', $articles)->with('categories', $categories);
-        //     }
-        // }
-
-
-
-
-
-       
-        // if($order == 'limitados'){
-        //     $articles = CatalogArticle::whereRaw('catalog_articles.stock < catalog_articles.stockmin')->activeFull()->paginate($pagination);
-        // }
-        // elseif($order == 'descuento'){
-        //     $articles = CatalogArticle::where('discount', '>', 0)->orWhere('reseller_discount', '>', '0')->activeFull()->orderBy($rowName, $order)->paginate($pagination);
-        // }
-        // else 
-        // {
-        //     // ---------- Queries ------------    
-        //     if(isset($code)){
-        //         $articles = CatalogArticle::where('id', 'LIKE', "%".$code."%")->activeFull()->paginate($pagination);
-        //     }
-        //     elseif(isset($name)){
-        //         $articles = CatalogArticle::searchName($name)->activeFull()->orderBy($rowName, $order)->paginate($pagination);
-        //     } 
-        //     elseif(isset($category)){
-        //         $articles = CatalogArticle::where('category_id', $category)->activeFull()->orderBy($rowName, $order)->paginate($pagination);
-        //     }
-        //     else{
-        //         $articles = CatalogArticle::orderBy($rowName, $order)->activeFull()->paginate($pagination);
-        //     }
-            
-        // }
-
-        // $categories = CatalogCategory::orderBy('id', 'ASC')->pluck('name','id');       
         
         return view($view)
             ->with('articles', $articles)
             ->with('categories', $categories);
-
     }
 
-    public function indexInactive(Request $request)
-    {
+    // public function indexInactive(Request $request)
+    // {
         
 
-        $pagination = $this->getSetPaginationCookie($request->get('results'));
-        $code     = $request->get('code');
-        $name     = $request->get('name');
-        $category = $request->get('category');
-        $order    = $request->get('orden');
-        $rowName = 'stock';
+    //     $pagination = $this->getSetPaginationCookie($request->get('results'));
+    //     $code     = $request->get('code');
+    //     $name     = $request->get('name');
+    //     $category = $request->get('category');
+    //     $order    = $request->get('orden');
+    //     $rowName = 'stock';
 
-        if($request->orden_af)
-        {
-            $order = $request->orden_af;
-            $rowName = "name";
-        }
-        if(!isset($order))
-        {
-            $rowName = 'id';
-            $order = 'DESC';
-        }
+    //     if($request->orden_af)
+    //     {
+    //         $order = $request->orden_af;
+    //         $rowName = "name";
+    //     }
+    //     if(!isset($order))
+    //     {
+    //         $rowName = 'id';
+    //         $order = 'DESC';
+    //     }
         
-        if(isset($code))
-        {
-            $articles = CatalogArticle::where('id', 'LIKE', "%".$code."%")->inactive()->paginate($pagination);
-        }
-        elseif(isset($name))
-        {
-            $articles = CatalogArticle::searchName($name)->inactive()->orderBy($rowName, $order)->paginate($pagination);
-        } 
-        elseif(isset($category))
-        {
-            $articles = CatalogArticle::where('category_id', $category)->inactive()->orderBy($rowName, $order)->paginate($pagination);
-        }
-        else 
-        {
-            $articles = CatalogArticle::orderBy($rowName, $order)->inactive()->paginate($pagination);
-        }
+    //     if(isset($code))
+    //     {
+    //         $articles = CatalogArticle::where('id', 'LIKE', "%".$code."%")->inactive()->paginate($pagination);
+    //     }
+    //     elseif(isset($name))
+    //     {
+    //         $articles = CatalogArticle::searchName($name)->inactive()->orderBy($rowName, $order)->paginate($pagination);
+    //     } 
+    //     elseif(isset($category))
+    //     {
+    //         $articles = CatalogArticle::where('category_id', $category)->inactive()->orderBy($rowName, $order)->paginate($pagination);
+    //     }
+    //     else 
+    //     {
+    //         $articles = CatalogArticle::orderBy($rowName, $order)->inactive()->paginate($pagination);
+    //     }
 
-        $categories = CatalogCategory::orderBy('id', 'ASC')->pluck('name','id'); 
+    //     $categories = CatalogCategory::orderBy('id', 'ASC')->pluck('name','id'); 
 
-        return view('vadmin.catalog.index-inactive')
-            ->with('articles', $articles)
-            ->with('inactiveCatalog', true)
-            ->with('categories', $categories);
-    }
+    //     return view('vadmin.catalog.index-inactive')
+    //         ->with('articles', $articles)
+    //         ->with('inactiveCatalog', true)
+    //         ->with('categories', $categories);
+    // }
 
     public function show($id)
     {
@@ -242,10 +187,10 @@ class ArticlesController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function exportPdf($params, $action)
+    public function exportPdf($params, $action, $status)
     {   
-        $items = $this->getData($params);
-        
+        $items = $this->getData($params, $status);
+
         $pdf = PDF::loadView('vadmin.catalog.invoice', array('items' => $items));
         $pdf->setPaper('A4', 'landscape');
         
@@ -255,9 +200,9 @@ class ArticlesController extends Controller
         return $pdf->download('listado-catalogo.pdf');
     }
 
-    public function exportSheet($params, $format)
+    public function exportSheet($params, $format, $status)
     {
-        $items = $this->getData($params);
+        $items = $this->getData($params, $status);
         
 		Excel::create('listado-catalogo', function($excel) use($items){
             $excel->sheet('Listado', function($sheet) use($items) {   
@@ -267,10 +212,14 @@ class ArticlesController extends Controller
         })->export($format);
     }
 
-    public function getData($params)
+    public function getData($params, $status)
     {
-        if($params == 'all'){
-            $items = CatalogArticle::orderBy('id', 'DESC')->get();    
+        if($params == 'all')
+        {
+            if($status == "0")
+                $items = CatalogArticle::orderBy('id', 'DESC')->inactive()->get();  
+            else
+                $items = CatalogArticle::orderBy('id', 'DESC')->active()->get();  
             return $items;
         }
         

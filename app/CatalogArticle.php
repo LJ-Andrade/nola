@@ -11,7 +11,7 @@ class CatalogArticle extends Model
 
     protected $fillable = ['category_id', 'user_id', 'name', 'code',  'description', 
     'color', 'textile', 'stock', 'stockmin', 'price', 'discount', 'reseller_price', 
-    'reseller_discount', 'thumb', 'status', 'discontinued', 'slug'];
+    'reseller_discount', 'thumb', 'status', 'slug'];
 
     public function category(){
     	return $this->belongsTo('App\CatalogCategory');
@@ -68,21 +68,21 @@ class CatalogArticle extends Model
     }
 
     public function scopeActive($query){
-        return $query->where('status', '1')->where('discontinued', '!=', '1')->where('stock', '>', '0');
+        return $query->where('status', '1');
     }
 
-    public function scopeActiveFull($query)
+    public function scopeActiveStock($query)
     {
-        return $query->where('status', '1')->where('discontinued', '!=', '1');
+        return $query->where('status', '1')->where('stock', '>', '0');
     }
 
     public function scopeInactive($query){
-        return $query->where('status', '0')->where('stock', '>', '0');
+        return $query->where('status', '0');
     }
 
-    public function scopeDiscontinued($query){
-        return $query->where('discontinued', '1');
-    }
+    // public function scopeDiscontinued($query){
+    //     return $query->where('discontinued', '1');
+    // }
     
     public function scopeSearch($query, $term, $categories, $tags)
     {  

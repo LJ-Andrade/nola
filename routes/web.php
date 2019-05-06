@@ -185,8 +185,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     Route::get('exportCustomersListPdf/{params}/{action}', ['as' => 'vadmin.exportCustomersListPdf', 'uses' => 'CustomerController@exportPdf']);
     Route::get('exportCustomersListSheet/{params}/{format}', ['as' => 'vadmin.exportCustomersListSheet', 'uses' => 'CustomerController@exportSheet']);
     // Export Catalog List
-    Route::get('exportCatalogListPdf/{params}/{action}', ['as' => 'vadmin.exportCatalogListPdf', 'uses' => 'Catalog\ArticlesController@exportPdf']);
-    Route::get('exportCatalogListSheet/{params}/{format}', ['as' => 'vadmin.exportCatalogListSheet', 'uses' => 'Catalog\ArticlesController@exportSheet']);
+    Route::get('exportCatalogListPdf/{params}/{action}/{status}', ['as' => 'vadmin.exportCatalogListPdf', 'uses' => 'Catalog\ArticlesController@exportPdf']);
+    Route::get('exportCatalogListSheet/{params}/{format}/{status}', ['as' => 'vadmin.exportCatalogListSheet', 'uses' => 'Catalog\ArticlesController@exportSheet']);
     // Export Orders
     Route::get('exportOrderCsv/{params}', ['as' => 'vadmin.exportOrderCsv', 'uses' => 'Store\OrdersController@exportOrderCsv']);
     Route::get('exportOrderXls/{params}', ['as' => 'vadmin.exportOrderXls', 'uses' => 'Store\OrdersController@exportOrderXls']);

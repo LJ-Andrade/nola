@@ -96,20 +96,20 @@ class StoreController extends Controller
         {   
             $tags = CatalogTag::with(['articles' => function($query) { $query->where('status', '=', '1'); }])->get();
             $categories = CatalogCategory::with(['articles' => function($query) { $query->where('status','=', '1'); }])->get();
-            $articles = CatalogArticle::search($request->buscar, $categories, $tags)->active()->paginate($pagination);
+            $articles = CatalogArticle::search($request->buscar, $categories, $tags)->activeStock()->paginate($pagination);
         } 
         else if(isset($request->filtrar))
         {
 
             switch ($request->filtrar) {
                 case 'populares':
-                    $articles = CatalogArticle::has('hasFavs')->active()->paginate($pagination);
+                    $articles = CatalogArticle::has('hasFavs')->activeStock()->paginate($pagination);
                     break;
                 case 'descuentos':
-                    $articles = CatalogArticle::where('discount', '>', '0')->orderBy('discount', 'DESC')->active()->paginate($pagination);
+                    $articles = CatalogArticle::where('discount', '>', '0')->orderBy('discount', 'DESC')->activeStock()->paginate($pagination);
                     break;
                 default:
-                $articles = CatalogArticle::orderBy($orderBy, $order)->orderBy($orderBy2, $order2)->active()->paginate($pagination);
+                $articles = CatalogArticle::orderBy($orderBy, $order)->orderBy($orderBy2, $order2)->activeStock()->paginate($pagination);
                     break;
             }
             // if($request->filtrar == 'populares')
@@ -123,7 +123,7 @@ class StoreController extends Controller
         }
         else if(isset($request->categoria))
         {
-            $articles = CatalogArticle::orderBy($orderBy, $order)->active()->where('category_id', $request->categoria)->paginate($pagination);
+            $articles = CatalogArticle::orderBy($orderBy, $order)->activeStock()->where('category_id', $request->categoria)->paginate($pagination);
         }
         else if(isset($request->etiqueta))
         {
@@ -131,18 +131,18 @@ class StoreController extends Controller
             $tag = $request->etiqueta;
             $articles = CatalogArticle::whereHas('tags', function ($query) use($tag){
                 $query->where('catalog_tag_id', $tag);
-            })->active()->paginate($pagination);
+            })->activeStock()->paginate($pagination);
         }
         else if(isset($request->temporada))
         {
             $season = $request->temporada;
             $articles = CatalogArticle::whereHas('seasons', function ($query) use($season){
                 $query->where('catalog_season_id', $season);
-            })->active()->paginate($pagination);
+            })->activeStock()->paginate($pagination);
         }
         else 
         {
-            $articles = CatalogArticle::orderBy($orderBy, $order)->orderBy($orderBy2, $order2)->active()->paginate($pagination);
+            $articles = CatalogArticle::orderBy($orderBy, $order)->orderBy($orderBy2, $order2)->activeStock()->paginate($pagination);
         }
         
         return view('store.index')
