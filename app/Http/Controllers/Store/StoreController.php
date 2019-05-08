@@ -365,7 +365,12 @@ class StoreController extends Controller
             try
             {
                 // Notify Bussiness
-                Mail::to(APP_EMAIL_1)->send(new SendMail('Compra Recibida', 'Checkout', $cart));
+                if($this->settings->email)
+                    $appEmail = $this->settings->email;
+                else
+                    $appEmail = APP_EMAIL_1;
+
+                Mail::to($appEmail)->send(new SendMail('Compra Recibida', 'Checkout', $cart));
                 // Notify Customer
                 $customerEmail = auth()->guard('customer')->user()->email;
                 //$customerEmail = 'javzero1@gmail.com';
