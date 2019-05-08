@@ -20,7 +20,7 @@ class CronTest extends Command
      *
      * @var string
      */
-    protected $description = 'We are testing cron jobs';
+    protected $description = 'Test if task is working';
 
     /**
      * Create a new command instance.

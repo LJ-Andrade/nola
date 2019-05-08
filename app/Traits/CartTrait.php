@@ -217,7 +217,8 @@ trait CartTrait {
                 if($action == 'delete')
                 {
                     foreach($cart->items as $item){
-                        $this->updateCartItemStock($item->article->id, $item->quantity);
+                        if($item->article)
+                            $this->updateCartItemStock($item->article->id, $item->quantity);
                     }
                     $cart->delete();
                     Log::info("Carro n°".$id." eliminado");
@@ -227,7 +228,8 @@ trait CartTrait {
                 {
                     $cart->status = "Canceled";
                     foreach($cart->items as $item){
-                        $this->updateCartItemStock($item->article->id, $item->quantity);
+                        if($item->article)
+                            $this->updateCartItemStock($item->article->id, $item->quantity);
                     }
                     $cart->save();
                     Log::info("Carro n°".$id." cancelado");
@@ -235,7 +237,7 @@ trait CartTrait {
                 }
                 else
                 {
-                    $response = "No deleted or canceled cart";
+                    $response = "No action selected";
                 }
             }
             $response = $count . " carros manejados";
@@ -258,7 +260,7 @@ trait CartTrait {
                 $response .= $cart->customer->id;
                 $response .= $cart->customer->email;
                 $email = $cart->customer->email;
-                Mail::to($email)->send(new SendMail('Nola Indumentaria | Carro de compra activo', 'NotifyOldCarts', $cart));
+                Mail::to($email)->send(new SendMail('Nola | Carro de compra activo', 'NotifyOldCarts', $cart));
                 Log::info("Eviando notificación a cliente: " . $cart->customer->name . " " . $cart->customer->surname . " (" . $cart->customer->id. ") a " . $cart->customer->email);
                 $count++;
             }

@@ -8,7 +8,7 @@ use App\Cart;
 use App\Traits\CartTrait;
 use Log;
 
-class DeleteOldCarts extends Command
+class CancelOldCarts extends Command
 {
     use CartTrait;
 
@@ -17,14 +17,14 @@ class DeleteOldCarts extends Command
      *
      * @var string
      */
-    protected $signature = 'delete:oldcarts';
+    protected $signature = 'cancel:oldcarts';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Deleting old carts';
+    protected $description = 'Cancel old carts';
 
     /**
      * Create a new command instance.

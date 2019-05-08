@@ -4,8 +4,9 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-// use App\Console\Commands\CronTest;
-use App\Console\Commands\DeleteOldCarts;
+use App\Console\Commands\CronTest;
+use App\Console\Commands\CancelOldCarts;
+use App\Console\Commands\DeleteCanceledCarts;
 use App\Console\Commands\NotifyOldCarts;
 
 class Kernel extends ConsoleKernel
@@ -16,8 +17,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // CronTest::class,
-        DeleteOldCarts::class,
+        CronTest::class,
+        CancelOldCarts::class,
+        DeleteCanceledCarts::class,
         NotifyOldCarts::class
     ];
 
@@ -32,6 +34,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         // $schedule->command('cron:test')->everyMinute();
         // ->daily();
+        $schedule->command('cancel:oldcarts')->daily();
         $schedule->command('delete:oldcarts')->daily();
         $schedule->command('notify:oldcarts')->daily();
     }
