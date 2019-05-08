@@ -65,7 +65,6 @@ class OrdersController extends Controller
             else
             {
                 $pagination = 24;
-                dd("2");
             }
         }
         // dd($pagination);
