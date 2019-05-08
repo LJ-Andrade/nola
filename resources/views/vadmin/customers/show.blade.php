@@ -17,7 +17,7 @@
     <div class="row">
         @component('vadmin.components.container')
         @slot('title')
-                <span style="color: #ada8a8">Perfil | </span>{{ $customer->name }} <br>
+                <span style="color: #ada8a8">Perfil | </span>{{ $customer->name }} (# {{ $customer->id }}) <br>
                 <span class="small"> Compras realizadas: {{ $customer->staticstics('totalCarts')}} | </span>  
                 <span class="small"> Prendas compradas: {{ $customer->staticstics('totalItems')}} | </span>
                 <span class="small"> Total gastado: $ {{ $customer->staticstics('totalSpent')}}<br> </span>
@@ -44,6 +44,10 @@
                 </div>
                 <div class="col-md-9">
                     <div class="column-data">
+                        <div class="row item">
+                            <div class="label"><b>Código: </b></div>
+                            <span class="data">#{{ $customer->id }}</span>
+                        </div> <br>
                         <div class="row item">
                             <div class="label"><b>Nombre de usuario: </b></div>
                             <span class="data">{{ $customer->username }}</span>

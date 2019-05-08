@@ -28,27 +28,21 @@ class OrdersController extends Controller
 
     public function index(Request $request)
     {   
-        // $pagination = $this->getSetPaginationCookie($request->get('results'));
-        $pagination = '30';
-        
+        $pagination = $this->getSetPaginationCookie($request->get('results'));
+        $status = $request->get('status');
+
+    
         if($request->id != null)
         {
-            $items = Cart::searchId($request->id)->orderBy('id', 'ASC')->paginate($pagination); 
+            $items = Cart::where('id', $request->id)->where('status', $status)->orderBy('id', 'ASC')->paginate($pagination); 
         } 
         else if($request->customer != null)
         {
-            $items = Cart::searchCustomer($request->customer)->get();
+            $items = Cart::searchCustomer($request->customer)->where('status', $status)->paginate($pagination);
         }
-        else if($request->status != null)
+        else
         {
-            if($request->status == 'All')
-            {
-                $items = Cart::orderBy('created_at', 'DESC')->where('status', '!=','Active')->paginate($pagination);
-            } else {
-                $items = Cart::searchStatus($request->status)->orderBy('created_at', 'DESC')->paginate($pagination);
-            }
-        } else {
-            $items = Cart::orderBy('created_at', 'DESC')->where('status', '=','Process')->active()->paginate($pagination);
+            $items = Cart::where('status', $status)->orderBy('created_at', 'DESC')->paginate($pagination);
         }
         
 
@@ -64,15 +58,17 @@ class OrdersController extends Controller
         }
         else
         {
-            if(Cookie::get('stock-pagination'))
+            if(Cookie::get('stock-pagination') != null)
             {
-                $pagination = Cookie::get('store-pagination');
+                $pagination = Cookie::get('stock-pagination');
             }
             else
             {
                 $pagination = 24;
+                dd("2");
             }
         }
+        // dd($pagination);
         return $pagination;
     }
 

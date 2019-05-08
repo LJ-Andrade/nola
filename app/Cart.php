@@ -54,6 +54,11 @@ class Cart extends Model
         });
     }
 
+    // public function active($query)
+    // {
+    //     $query->where('status', '!=')
+    // }
+
     public function deleteOldCarts()
     {
         dd("Test");

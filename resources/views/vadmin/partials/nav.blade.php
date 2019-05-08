@@ -308,29 +308,6 @@
 			</ul>
 		</li>
 
-		{{-- <li class="nav-item has-sub PortfolioLi"><a href="#"><i class="icon-briefcase2"></i><span data-i18n="nav.menu_levels.main" class="menu-title">Portfolio</span></a>
-			<ul class="menu-content" style="">
-				<li class="PortfolioList"><a href="{{ route('portfolio.index') }}" class="menu-item"><i class="icon-list"></i> Listado</a></li>
-				<li class="PortfolioNew"><a href="{{ route('portfolio.create') }}" class="menu-item"><i class="icon-plus-round"></i> Nuevo Artículo</a></li>
-				<li class="has-sub is-shown PortfolioCategoriesLi"><a href="#" data-i18n="nav.menu_levels.second_level_child.main" class="menu-item">Categorías</a>
-					<ul class="menu-content" style="">
-						<li class="is-shown PortfolioCategoriesList"><a href="{{ route('categories.index') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> Listado</a></li>
-						<li class="is-shown PortfolioCategoriesNew"><a href="{{ route('categories.create') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-plus-round"></i> Nueva Categoría</a></li>
-					</ul>
-				</li>
-				<li class="has-sub is-shown PortfolioTagsLi"><a href="#" data-i18n="nav.menu_levels.second_level_child.main" class="menu-item">Etiquetas</a>
-					<ul class="menu-content" style="">
-						<li class="is-shown PortfolioTagsList"><a href="{{ route('tags.index') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> Listado</a></li>
-						<li class="is-shown PortfolioTagsNew"><a href="{{ route('tags.create') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-plus-round"></i> Nueva Etiqueta</a></li>
-					</ul>
-				</li>
-			</ul>
-		</li> --}}
-		{{--  
-		<li class="nav-item"><a href="#"><i class="icon-cog"></i><span data-i18n="nav.page_layouts.main" class="menu-title">Administración</span></a>
-			<ul class="menu-content" style="">
-			</ul>
-		</li>  --}}
 		<li class="navigation-header"><span data-i18n="nav.category.support">Administración</span>
 			<i data-toggle="tooltip" data-placement="right" data-original-title="Support" class="icon-ellipsis icon-ellipsis"></i>
 		</li>
@@ -347,11 +324,11 @@
 						Cargar Pedido
 					</a>
 				</li>
-				<li class="is-shown {{ Menu::activeMenu('orders') }}">
+				{{-- <li class="is-shown {{ Menu::activeMenu('orders') }}">
 					<a href="{{ route('orders.index', ['status' => 'All']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
 						Ver Todos
 					</a>
-				</li>
+				</li> --}}
 				<li class="is-shown {{ Menu::activeMenu('orders') }}">
 					<a href="{{ route('orders.index', ['status' => 'Process']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
 						Nuevos
@@ -368,6 +345,11 @@
 				<li class="is-shown {{ Menu::activeMenu('orders') }}">
 					<a href="{{ route('orders.index', ['status' => 'Finished']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
 						Finalizados
+					</a>
+				</li>
+				<li class="is-shown {{ Menu::activeMenu('orders') }}">
+					<a href="{{ route('orders.index', ['status' => 'Canceled']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
+						Cancelados
 					</a>
 				</li>
 				<li class="is-shown {{ Menu::activeMenu('active-carts') }}">

@@ -115,7 +115,7 @@ class Customer extends Authenticatable
 
     function totalItems()
     {
-        $carts = $this->carts;
+        $carts = $this->carts->where('status', '!=', 'Canceled')->where('status', '!=', 'Active');
         $totalItems = 0;
         foreach($carts as $cart)
         {
@@ -132,7 +132,7 @@ class Customer extends Authenticatable
 
     function totalSpent()
     {
-        $carts = $this->carts;
+        $carts = $this->carts->where('status', '!=', 'Canceled')->where('status', '!=', 'Active');
         $totalSpent = 0;
         foreach($carts as $cart)
         {
@@ -146,7 +146,7 @@ class Customer extends Authenticatable
 
     function totalCarts()
     {
-        $carts = $this->carts;
+        $carts = $this->carts->where('status', '!=', 'Canceled')->where('status', '!=', 'Active');
         $totalCarts = 0;
         
         foreach($carts as $cart)

@@ -479,6 +479,10 @@ select {
   margin-left: 10px;
 }
 
+.content-header .list-actions .btn {
+  margin-bottom: 5px;
+}
+
 @media (max-width: 548px) {
   .content-header-fixed {
     width: 92%;
@@ -605,6 +609,32 @@ select {
 
 .column-data .item .data {
   border-bottom: 1px solid #f9f9f9;
+}
+
+.horizontal-filters .filter-input {
+  float: left;
+  margin-right: 10px;
+}
+
+.horizontal-filters .filter-input input, .horizontal-filters .filter-input select {
+  padding: 5px;
+  border-radius: 0;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 5px;
+  height: 34px;
+}
+
+.horizontal-filters .submit-btn-filter {
+  height: 34px;
+}
+
+@media (max-width: 768px) {
+  .horizontal-filters .filter-input {
+    float: none;
+  }
+  .horizontal-filters .filter-input select {
+    width: 100%;
+  }
 }
 
 .search-filters {
