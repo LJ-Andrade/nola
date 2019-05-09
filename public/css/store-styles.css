@@ -9090,6 +9090,7 @@ button:focus {
   width: 100%;
   text-align: center;
   margin-bottom: 20px;
+  font-weight: 300;
 }
 
 .info-container .deco-title span {

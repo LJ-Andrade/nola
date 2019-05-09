@@ -24,30 +24,30 @@
         <div class="row text-center">
             <div class="col-sm-12 col-md-6 col-lg-4 item">
                 <img src="{{ asset('images/web/icons/compra1.png') }} " alt="Compras">
-                <p>Elegí el producto que deseás comprar y selecciona la cantidad de unidades.</p>
+                <p>Elegí el producto que deseás comprar y selecciona la cantidad de unidades (si te posicionas con el cursor sobre la cantidad, te va a indicar cuantas unidades tenemos disponibles para la compra)
+                </p>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 item">
                 <img src="{{ asset('images/web/icons/compra2.png') }} " alt="Compras">
-                <p>Hacé clic en el botón de "Agregar al carrito".  Podés seguir agregando otros productos haciendo click en “Volver a la tienda”. O podés finalizar tu compra haciendo click en el icono del carrito.</p>
+                <p>Hacé clic en el botón de "Agregar al carrito". A partir de las 8 unidades vas a poder finalizar tu compra. Si querés ver más fotos de un producto, podés hacer click sobre la foto e ingresar al articulo para más detalles.
+                </p>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 item">
                 <img src="{{ asset('images/web/icons/compra3.png') }} " alt="Compras">
-                <p>Ahora estás en la pantalla de ckeckout. Aquí podrás revisar tu compra. Luego tenés que completar los datos de envío y de pago.</p>
+                <p>A la derecha de la pantalla vas a poder var el carrito, desde ahí podes modificar tu pedido, cambiando cantidades o eliminando productos. El monto total de tu compra se va calculando en tiempo real. Cuando hayas terminado, hacés click en “Continuar”.
+                </p>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-4 item">
+            <div class="col-sm-12 col-md-6 col-lg-6 item">
                 <img src="{{ asset('images/web/icons/compra4.png') }} " alt="Compras">
-                <p>Luego elegís el medio de pago que prefieras: puede ser efectivo, transferencia bancaria a alguna de las cuentas que manejamos (Galicia, Nación o Francés) o con tarjetas de crédito y débito a través de Mercadopago (operar por Mercadopago tiene un recargo del 5% que es la comisión que nos cobran por el servicio). </p>
+                <p>Ahora tenés que completar los datos para el envío, asegurate de que tus datos estén bien porque son los que vamos a utilizar para despachar tu pedido. Revisa bien el nombre, apellido y DNI para no tener problemas al retirar tu paquete. Si necesitás aclarar alguna información adicional necesaria para el envío, podés utilizar el campo “Observaciones”.
+                </p>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-4 item">
+            <div class="col-sm-12 col-md-6 col-lg-6 item">
                 <img src="{{ asset('images/web/icons/compra5.png') }} " alt="Compras">
-                <p>Podés elegir envío a terminal por encomienda o envío a una sucursal de OCA. Si residís en Capital, también ofrecemos el envío por mensajería a tu domicilio. Además, podés retirar por nuestro showroom ubicado en el barrio de Balvanera.</p>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4 item">
-                <img src="{{ asset('images/web/icons/compra6.png') }} " alt="Compras">
-                <p> Finalmente, tenés que completar los datos personales que sean requeridos y hacer clic en "Finalizar Compra" (si sos cliente mayorista, el mínimo de artículos requeridos para que tu compra sea aprobada es de 12 unidades surtidas).</p>
+                <p>¡Listo! En la pantalla siguiente podrás descargar un comprobante de tu compra. Nos estaremos contactando para coordinar tu pedido. Tené en cuenta que se despacha exclusivamente los días miércoles y viernes. Para retirar por el showroom de lunes a sábado con cita.</p>
             </div>
         </div>
-        <div class="row-centered lone-item">
+        {{-- <div class="row-centered lone-item">
             <div class="col-md-8 item">
                 <div class="text-center">
                     <img src="{{ asset('images/web/icons/compra7.png') }} " alt="Compras"><br>
@@ -56,7 +56,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> --}}
 	</div>
 @endsection
 
