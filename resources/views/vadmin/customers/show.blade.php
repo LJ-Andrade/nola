@@ -17,7 +17,7 @@
     <div class="row">
         @component('vadmin.components.container')
             @slot('title')
-                <span style="color: #ada8a8">@if($customer->name) {{ $customer->name }} @endif
+                <span style="color: #ada8a8">@if($customer->name) {{ $customer->name }} @else - @endif
                      @if($customer->surname) {{ $customer->surname }} @endif | </span>{{ $customer->username }} (# {{ $customer->id }}) <br>
                 
             @endslot
