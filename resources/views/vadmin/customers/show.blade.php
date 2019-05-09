@@ -6,7 +6,7 @@
 		@slot('breadcrums')
 			<li class="breadcrumb-item"><a href="{{ url('vadmin')}}">Inicio</a></li>
             <li class="breadcrumb-item"><a href="{{ route('customers.index')}}">Clientes</a></li>
-            <li class="breadcrumb-item active">Perfil de <b>{{ $customer->name }} {{ $customer->surname }}</b></li>
+            <li class="breadcrumb-item active">Perfil de <b>@if($customer->name) {{ $customer->name }} {{ $customer->surname }} | @endif {{ $customer->username }}  </b></li>
 		@endslot
 		@slot('actions')
 		@endslot
