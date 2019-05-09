@@ -17,7 +17,8 @@
     <div class="row">
         @component('vadmin.components.container')
             @slot('title')
-                <span style="color: #ada8a8">{{ $customer->name }} {{ $customer->surname }} | </span>{{ $customer->username }} (# {{ $customer->id }}) <br>
+                <span style="color: #ada8a8">@if($customer->name) {{ $customer->name }} @endif
+                     @if($customer->surname) {{ $customer->surname }} @endif | </span>{{ $customer->username }} (# {{ $customer->id }}) <br>
                 
             @endslot
             @slot('content')
@@ -29,7 +30,7 @@
                         <div class="data-row">
                             <p>Dirección: <b>@if($customer->address) {{ $customer->address }} @else - @endif</b> </p>
                             <p>@if(!$customer->geoprov) @else {{ $customer->geoprov->name }}@endif</b>
-                                | @if(!$customer->geoloc) @else {{ $customer->geoloc->name }}@endif
+                                @if(!$customer->geoloc) @else | {{ $customer->geoloc->name }}@endif
                                 @if($customer->cp) (C.p: {{ $customer->cp }}) @endif
                             </p>
                             <p>E-mail: <b>{{ $customer->email }}</b></p>
