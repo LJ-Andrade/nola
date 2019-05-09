@@ -71,8 +71,8 @@ class RegisterController extends Controller
         ],[
             'username.required'    => 'Debe ingresar un nombre de usuario',
             'username.max'         => 'El nombre de usuario puede contener hasta 20 caracteres',
-            'username.unique'      => 'El nombre de usuario ya existe, debe elegir otro',
-            'email.unique'         => 'Ya hay un usuario con el email ingresado, debe seleccionar otro email'        
+            'username.unique'      => 'El nombre de usuario ingresado ya existe, debe elegir otro',
+            'email.unique'         => 'Ya hay un usuario registrado con el email ingresado, debe utilizar uno distinto'        
         ]);
     }
         
@@ -98,7 +98,6 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(){
         // $geoprovs = GeoProv::pluck('name','id');
-        
         return view('store.register');
             // ->with('geoprovs',$geoprovs);
     }
@@ -113,7 +112,6 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        // dd($request->all());
         if($request->group != '2' && $request->group != '3')
             return back()->withErrors('No se ha seleccionado un tipo de usuario');
 
@@ -122,18 +120,18 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
      
-        try{
-            if($user->group == '3'){
-                $subject = 'Solicitud de cliente mayorísta';
-                $message = 'Un usuario ha solicitado ser cliente mayorísta';
-            } else {
-                $subject = 'Nuevo usuario registrado';
-                $message = 'Nuevo usuario registrado';
-            }
-            // Mail::to(APP_EMAIL_1)->send(new SendMail($subject, 'SimpleMail', $message));
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
+        // try{
+        //     if($user->group == '3'){
+        //         $subject = 'Solicitud de cliente mayorísta';
+        //         $message = 'Un usuario ha solicitado ser cliente mayorísta';
+        //     } else {
+        //         $subject = 'Nuevo usuario registrado';
+        //         $message = 'Nuevo usuario registrado';
+        //     }
+        //     // Mail::to(APP_EMAIL_1)->send(new SendMail($subject, 'SimpleMail', $message));
+        // } catch (\Exception $e) {
+        //     dd($e->getMessage());
+        // }
 
         return $this->registered($request, $user)
                         ?: redirect($this->redirectPath())->with("message", "Bienvenid@! Gracias por registrarte!");

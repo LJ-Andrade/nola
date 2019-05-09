@@ -7,18 +7,14 @@
 @endsection
 
 @section('content')
-    @if(Auth::guard('customer')->check())
-    <div class="CheckoutCart checkout-cart checkout-cart-floating">
-        @include('store.partials.checkout-cart')
-    </div>
-    @endif
+
     <div class="container info-container">
 		<div class="row">
             <div class="deco-title">
                 <span>
-                    <div class="deco deco-left"><img src="{{ asset('images/gral/icons/icon-deco-left.png') }}" alt="Deco"></div>
+                    <div class="deco deco-left"><img src="{{ asset('images/web/icons/icon-deco-left.png') }}" alt="Deco"></div>
                     Condiciones para la compra mayorísta
-                    <div class="deco deco-right"><img src="{{ asset('images/gral/icons/icon-deco-right.png') }}" alt="Deco"></div>
+                    <div class="deco deco-right"><img src="{{ asset('images/web/icons/icon-deco-right.png') }}" alt="Deco"></div>
                 </span>
             </div>
         </div>
