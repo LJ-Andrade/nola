@@ -28,7 +28,7 @@
 	<div class="text-links">
 		@if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '3' )
 		<a href="{{ url('politica-de-exclusividad') }}">Política de Exclusividad</a>
-		<a href="{{ url('condiciones-de-compra') }}">Condiciones de Compra</a>
+		<a href="{{ url('condiciones-de-compra') }}">Preguntas Frecuentes</a>
 		@endif
 		<a href="{{ url('como-comprar') }}">Como comprar</a> 
 	</div>

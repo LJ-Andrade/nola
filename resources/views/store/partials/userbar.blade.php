@@ -1,11 +1,11 @@
 <!-- Toolbar-->
 <div class="toolbar">
     <div class="inner">
-        <a class="site-logo-mobile" href="{{ url('/') }}"><img style="width: 110px" src="{{ asset('images/logos/app-logo.png') }}" alt="Logo"></a>
+        <a class="site-logo-mobile" href="{{ url('/') }}"><img style="width: 110px" src="{{ asset('images/app/app-logo.png') }}" alt="Logo"></a>
         <div class="text-links">
             @if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '3' )
                 <a href="{{ url('politica-de-exclusividad') }}">Política de Exclusividad</a>
-                <a href="{{ url('condiciones-de-compra') }}">Condiciones de Compra</a>
+                <a href="{{ url('condiciones-de-compra') }}">Preguntas Frecuentes</a>
             @endif
             <a href="{{ url('como-comprar') }}"><i class="far fa-question-circle"></i> Como comprar</a>
             

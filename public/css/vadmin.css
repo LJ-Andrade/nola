@@ -593,6 +593,64 @@ select {
   }
 }
 
+.customer-profile .customer-image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -ms-grid-row-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding-top: 25px;
+}
+
+.customer-profile .customer-image img {
+  border-radius: 50%;
+}
+
+.row-with-data .data-row {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.row-with-data .data-row p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .customer-profile .customer-image {
+    margin-bottom: 15px;
+    padding-top: 0;
+  }
+  .row-with-data .data-row p {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 350px) {
+  .row-with-data .data-row {
+    overflow-x: scroll;
+  }
+}
+
+.two-col-data .image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -ms-grid-row-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+}
+
 .column-data .item {
   white-space: nowrap;
   display: -webkit-inline-box;
@@ -609,6 +667,15 @@ select {
 
 .column-data .item .data {
   border-bottom: 1px solid #f9f9f9;
+}
+
+@media (max-width: 768px) {
+  .column-data {
+    overflow-x: scroll;
+  }
+  .column-data .item {
+    white-space: normal;
+  }
 }
 
 .horizontal-filters .filter-input {
@@ -1235,7 +1302,7 @@ input, select {
 
 .btnMain {
   background-color: #292d3e;
-  color: #fff;
+  color: #fff !important;
 }
 
 .btnMain:hover, .btnMain:active, .btnMain:focus {

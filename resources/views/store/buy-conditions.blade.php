@@ -13,7 +13,7 @@
             <div class="deco-title">
                 <span>
                     <div class="deco deco-left"><img src="{{ asset('images/web/icons/icon-deco-left.png') }}" alt="Deco"></div>
-                    Condiciones para la compra mayorísta
+                    Preguntas Frecuentes
                     <div class="deco deco-right"><img src="{{ asset('images/web/icons/icon-deco-right.png') }}" alt="Deco"></div>
                 </span>
             </div>

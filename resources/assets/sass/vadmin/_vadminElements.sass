@@ -207,6 +207,47 @@
 		line-height: 2rem
 
 
+.customer-profile
+	.customer-image
+		@include flex-center()
+		padding-top: 25px
+		img
+			border-radius: 50% 
+
+
+.row-with-data
+	.data-row
+		margin-bottom: 20px
+		border: 1px solid #ccc
+		padding: 10px
+		p
+			margin: 0
+
+@media (max-width: 768px)
+	.customer-profile .customer-image
+		margin-bottom: 15px
+		padding-top: 0
+	.row-with-data
+		.data-row 
+			// overflow-x: scroll
+			p
+				white-space: normal
+
+@media (max-width: 350px)
+	.row-with-data
+		.data-row 
+			overflow-x: scroll
+				
+
+.two-col-data
+	.col-item
+		// display: flex
+	.image
+		@include flex-center()
+		border: 1px solid #ccc
+	.data
+
+
 .column-data
 	.item
 		white-space: nowrap
@@ -219,7 +260,11 @@
 		.data
 			border-bottom: 1px solid #f9f9f9
 
-
+@media (max-width: 768px)
+	.column-data
+		overflow-x: scroll
+		.item
+			white-space: normal
 //////////////////////////////////////
 //                                  //
 //            SEARCH                //
@@ -677,9 +722,8 @@ input,select
 		color: #000
 
 .btnMain
-	
 	background-color: $main-color
-	color: #fff
+	color: #fff !important
 	&:hover,&:active,&:focus
 		color: #fff
 		background-color: $main-color2
