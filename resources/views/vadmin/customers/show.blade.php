@@ -27,13 +27,13 @@
                     </div>
                     <div class="col-sm-9 row-with-data">
                         <div class="data-row">
-                            <p>Dirección: <b>{{ $customer->address }}</b> </p>
+                            <p>Dirección: <b>@if($customer->address) {{ $customer->address }} @else - @endif</b> </p>
                             <p>@if(!$customer->geoprov) @else {{ $customer->geoprov->name }}@endif</b>
                                 | @if(!$customer->geoloc) @else {{ $customer->geoloc->name }}@endif
                                 @if($customer->cp) (C.p: {{ $customer->cp }}) @endif
                             </p>
                             <p>E-mail: <b>{{ $customer->email }}</b></p>
-                            <p>Teléfono: <b>{{ $customer->phone }} @if($customer->phone2) | {{ $customer->phone2 }} @endif </b></p>
+                            <p>Teléfono: <b>@if($customer->phone) {{ $customer->phone }} @else - @endif @if($customer->phone2) | {{ $customer->phone2 }} @endif </b></p>
                             <p>Cuit: <b>@if($customer->cuit) {{ $customer->cuit }} @else - @endif</b></p>
                             <p>Dni: <b>@if($customer->dni) {{ $customer->dni }} @else - @endif</b></p>
                             <p>Tipo de Cliente: <b>{{ clientGroupTrd($customer->group) }}</b></p>
