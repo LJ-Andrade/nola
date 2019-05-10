@@ -2127,6 +2127,16 @@ form .form-actions {
   margin: 3px;
 }
 
+.swal2-modal {
+  border-radius: 0;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+}
+
+.swal2-confirm {
+  background-color: #292d3e !important;
+}
+
 .dropdown-notification .close-this {
   position: absolute;
   right: 15px;

@@ -195,13 +195,18 @@ class CartsController extends Controller
         $ids = json_decode('['.str_replace("'",'"',$request->id).']', true);
         try 
         {
-            foreach ($ids as $id) {
+            foreach ($ids as $id) 
+            {
                 $cart = Cart::find($id);
                 if($cart != null)
                 {
-                    foreach($cart->items as $item){
-                        if($item->article != null)
-                            $this->updateCartItemStock($item->article->id, $item->quantity);
+                    if($cart->status != 'Canceled')
+                    {
+                        foreach($cart->items as $item)
+                        {
+                            if($item->article != null)
+                                $this->updateCartItemStock($item->article->id, $item->quantity);
+                        }
                     }
                     $cart->delete();
                 }
