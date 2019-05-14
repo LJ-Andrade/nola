@@ -216,11 +216,11 @@ trait CartTrait {
                 $cart = Cart::find($id);
                 if($action == 'delete')
                 {
-                    foreach($cart->items as $item){
-                        if($item->article)
-                            if($item->article->status != 'Canceled')
-                                $this->updateCartItemStock($item->article->id, $item->quantity);
-                    }
+                    // foreach($cart->items as $item){
+                    //     if($item->article)
+                    //         if($item->article->status != 'Canceled')
+                    //             $this->updateCartItemStock($item->article->id, $item->quantity);
+                    // }
                     $cart->delete();
                     Log::info("Carro n°".$id." eliminado");
                     $count++;
