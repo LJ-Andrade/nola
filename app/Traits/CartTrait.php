@@ -218,7 +218,8 @@ trait CartTrait {
                 {
                     foreach($cart->items as $item){
                         if($item->article)
-                            $this->updateCartItemStock($item->article->id, $item->quantity);
+                            if($item->article->status != 'Canceled')
+                                $this->updateCartItemStock($item->article->id, $item->quantity);
                     }
                     $cart->delete();
                     Log::info("Carro n°".$id." eliminado");
