@@ -151,8 +151,8 @@ trait CartTrait {
     // ----------------------------------------------------------
     public function updateCartItemStock($articleId, $quantity)
     {
-        try{
-            //CatalogArticle::where('id', $articleId)->update(['stock'=>$newStock]);
+        try
+        {
             $article = CatalogArticle::where('id', $articleId)->first();
             $newStock = intval($article->stock) + intval($quantity);
             $article->stock = $newStock;

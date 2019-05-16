@@ -44,11 +44,11 @@
     |--------------------------------------------------------------------------
     */
 
-    $('.AddToCart').on('submit', function(e){
-        e.preventDefault();
-        let data = $(this).serialize();
-        addToCart("{{ route('store.addToCartLive') }}", data);
-    });
+    // $('.AddToCart').on('submit', function(e){
+    //     e.preventDefault();
+    //     let data = $(this).serialize();
+    //     addToCart("{{ route('store.addToCartLive') }}", data);
+    // });
 
     /*
     |--------------------------------------------------------------------------

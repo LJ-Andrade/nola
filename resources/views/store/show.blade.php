@@ -108,33 +108,38 @@
 					<div class="item">
 						<div class="sub-title">Tela: {{ $article->textile }} </div>
 					</div>
-						
+					
+
 					@if($article->status == 1) @if($article->stock > 0) @if(Auth::guard('customer')->check())
-						{!! Form::open(['class' => 'AddToCart form-group item']) !!}
-							<input type="hidden" name="article_id" value="{{ $article->id }}">
-							<div class="sub-title">Talles </div>
-							<div class="item btn-group-toggle atribute-selector" data-toggle="buttons">
-								{{-- Sizes --}}
-								@foreach($article->atribute1 as $size)
-									<label class="SizeSelector btn btn-main-sm-hollow">
-										<input name="size_id" value="{{ $size->id }}" type="radio" autocomplete="off"> {{ $size->name }}
-									</label>
-								@endforeach
-							</div>
-							{{-- Display Remaining Stock --}}
-							<div class="row available-stock">
-								<span class="AvailableStock action-info-container">{{-- Data from backend --}}</span>
-							</div>
-							@if($article->status == 1)
-							<div class="input-with-btn">
-								<input id="MaxQuantity" class="form-control input-field short-input" name="quantity" type="number" min="1" max="{{ $article->stock }}" value="1" placeholder="1" required>
-								<input type="submit" id="AddToCartFormBtn" class="btn input-btn" value="Agregar al carro" disabled>
-							</div>
-							@else
-								Artículo no disponible al momento
-							@endif
-							<input type="hidden" value="{{ $article->id }}" name="articleId">
-						{!! Form::close() !!}
+						{{-- Use this to implement AJAX AddToCart --}}
+						{{-- {!! Form::open(['class' => 'AddToCart form-group item']) !!} --}}
+						{!! Form::open(['route' => 'store.addtocart', 'method' => 'POST', 'class' => 'price']) !!}	
+							{{ csrf_field() }}
+								<input type="hidden" name="article_id" value="{{ $article->id }}">
+								<div class="sub-title">Talles </div>
+								<div class="item btn-group-toggle atribute-selector" data-toggle="buttons">
+									{{-- Sizes --}}
+									@foreach($article->atribute1 as $size)
+										<label class="SizeSelector btn btn-main-sm-hollow">
+											<input name="size_id" value="{{ $size->id }}" type="radio" autocomplete="off"> {{ $size->name }}
+										</label>
+									@endforeach
+								</div>
+								{{-- Display Remaining Stock --}}
+								<div class="row available-stock">
+									<span class="AvailableStock action-info-container">{{-- Data from backend --}}</span>
+								</div>
+								@if($article->status == 1)
+								<div class="input-with-btn">
+									<input id="MaxQuantity" class="form-control input-field short-input" name="quantity" type="number" min="1" max="{{ $article->stock }}" value="1" placeholder="1" required>
+									<input type="submit" id="AddToCartFormBtn" class="btn input-btn" value="Agregar al carro" disabled>
+								</div>
+								@else
+									Artículo no disponible al momento
+								@endif
+								<input type="hidden" value="{{ $article->id }}" name="articleId">
+							{!! Form::close() !!}
+							<br>
 							{{-- {!! Form::open(['class' => 'AddToCart form-group price']) !!}
 								{{ csrf_field() }}	
 								<div class="input-with-btn">

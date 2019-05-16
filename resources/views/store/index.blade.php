@@ -167,7 +167,10 @@
 											@endif --}}
 											{{-- ADD TO CART | SIZES AND QUANTITY SELECTOR --}}
 											@if(Auth::guard('customer')->check())
-												{!! Form::open(['class' => 'AddToCart price']) !!}	
+												{{-- Use this to implement AJAX AddToCart --}}
+												{{-- {!! Form::open(['class' => 'AddToCart price']) !!}	 --}}
+											
+												{!! Form::open(['route' => 'store.addtocart', 'method' => 'POST', 'class' => 'price']) !!}	
 													{{ csrf_field() }}
 													<input type="number" min="1" max="{{ $article->stock }}" name="quantity" class="quantity-input" value="1"
 													data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $article->stock }}">

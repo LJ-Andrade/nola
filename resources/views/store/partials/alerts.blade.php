@@ -16,6 +16,13 @@
     <span class="text" style="color: #fff">{{ Session::get('message') }}</span>
 </div>
 @endif
+
+@if(Session::has('error'))
+<div class="alert alert-error alert-dismissible fade show text-center margin-bottom-1x">
+    <span class="alert-close" data-dismiss="alert"></span>
+    <span class="text" style="color: #fff">{{ Session::get('error') }}</span>
+</div>
+@endif
 {{-- 
 <div class="alert alert-success alert-dismissible fade show text-center margin-bottom-1x">
     <span class="alert-close" data-dismiss="alert"></span>

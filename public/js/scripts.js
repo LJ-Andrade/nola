@@ -298,35 +298,44 @@ window.setItemsData = function (newQuantity, articleId) {
 };
 
 // Add product to cart
-// -------------------------------------------
+// ----------------------------------------
 window.addToCart = function (route, data) {
+
     $.ajax({
         url: route,
         method: 'POST',
         dataType: 'JSON',
-        async: true,
         data: data,
+        // async: true,
         success: function success(data) {
             console.log(data);
-            if (data.response == 'first-item') {
-                console.log("Reloading");
-                location.reload();
-            } else if (data.response == 'success') {
+            // // if (data.response == 'first-item')
+            // // {
+            // //     console.log("Reloading");
+            // //     location.reload();
+            // // }
+            // else 
+            if (data.response == 'success') {
                 toast_success('Ok!', data.message, 'bottomCenter', '', 2500);
                 updateTotals();
                 setItemsData(data.quantity, data.articleId);
                 sumAllItems();
                 openCheckoutDesktop();
             } else if (data.response == 'warning') {
-                toast_success('Ups!', data.message, 'bottomCenter');
+                toast_success('', data.message, 'bottomCenter');
+            } else {
+                toast_success('', 'Caso desconocido', 'bottomCenter');
             }
+
+            $('#Error').html(data.responseText);
         },
         error: function error(data) {
-            // $('#Error').html(data.responseText);
+            console.error(route, data);
+            console.log(data);
+            $('#Error').html(data.responseText);
             // location.reload();
             console.log("Error en addtoCart()");
-            console.log(data);
-            toast_success('Ups!', 'Ha ocurrido un error: <b>' + data.responseJSON['message'] + '</b>', 'bottomCenter');
+            // toast_success('Ups!', 'Ha ocurrido un error: <b>' + data.responseJSON['message'] + '</b>', 'bottomCenter');
         }
     });
 };
@@ -340,6 +349,7 @@ window.updateActiveCart = function () {
 // Remove product from cart
 // -------------------------------------------
 window.removeFromCart = function (route, id, quantity, div, action) {
+
     $.ajax({
         url: route,
         method: 'POST',
@@ -358,11 +368,11 @@ window.removeFromCart = function (route, id, quantity, div, action) {
             }
         },
         error: function error(data) {
-            //$('#Error').html(data.responseText);
+            $('#Error').html(data.responseText);
             console.log("Error en removeFromCart()");
             console.log(data);
             // If an error pops when destroying an item, reload and prevent bad magic
-            location.reload();
+            // location.reload();
         }
     });
 };

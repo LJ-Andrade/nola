@@ -14,76 +14,143 @@ class CartItemController extends Controller
 {
     use CartTrait;
 
+
     public function store(Request $request)
     {   
-        // dd($request->all());
         // This come from Customer Model getCartAttribute()
         $activeCartId = auth()->guard('customer')->user()->cart->id;
-
+        
         // Check if article is already stored in cart
         $existingCartItem = CartItem::where('cart_id', $activeCartId)->where('size_id', $request->size_id)->where('article_id', $request->articleId)->first();
         if(!$existingCartItem)
         {
-            // dd("No Existe, crear nuevo");
+            $article = CatalogArticle::where('id', $request->articleId)->first();
+            // Prevent overbuy
+            if($request->quantity > $article->stock)
+                return back()->with('error', 'Seleccionó una cantidad mayor al stock disponible');
+
             // Create New Cart Item
             $cartItem = new CartItem();
             $cartItem->cart_id = $activeCartId;
             $cartItem->article_id = $request->articleId;
             $cartItem->quantity = $request->quantity;
             $cartItem->size_id = $request->size_id;
-            $article = CatalogArticle::where('id', $request->articleId)->first();
-            
-            // Stock management 
-            if($request->quantity > $article->stock)
-                return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible']); 
-            else 
-                $newStock = $this->updateCartItemStock($article->id, -$request->quantity);
-            
+                           
             $cartItem->article_name = $article->name;
             $cartItem->color = $article->color;
             $cartItem->textile = $article->textile;
             $cartItem->size = CatalogAtribute1::where('id', $request->size_id)->pluck('name')[0];
-            
+
             try 
             {
+                $newStock = $this->updateCartItemStock($article->id, -$request->quantity);
                 $cartItem->save();
-                return response()->json(['response' => 'success', 'articleId' => $article->id, 'message' => 'Producto "'. $article->name .'" agregado', 'newstock' => $newStock]); 
+                return back()->with('message', 'Artículo agregado');
             } 
             catch (\Exception $e) 
             {
-                return response()->json(['response' => 'error', 'message' => $e->getMessage()]); 
+                return back()->with('error', $e->getMessage());
             }
         }
         else
         {   
+            // dd($request->quantity. ' '. $existingCartItem->article->stock);
             // Stock management 
             // dd("Stock requerido: " . $request->quantity. " Estock de artículo: ". $existingCartItem->article->stock);
             if($request->quantity > $existingCartItem->article->stock)
-            {
-                return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible', 'newstock' => $newStock]); 
-            } 
-            else 
-            {
-                // Discount Stock
-                // * Note the minus (-) sign in $request->quantity
-                $newStock = $this->updateCartItemStock($existingCartItem->id, -$request->quantity);
-                // Update existing Cart Item
-                $existingCartItem->quantity += $request->quantity;
-            }
+                return back()->with('error', 'Seleccionó una cantidad mayor al stock disponible');
 
+            // Add quantity to existing item    
+            $existingCartItem->quantity += $request->quantity;
             try
             {
                 $existingCartItem->save();
-                return response()->json(['response' => 'success', 'articleId' => $existingCartItem->id, 'quantity' => $existingCartItem->quantity,
-                'message' => 'Producto "'. $existingCartItem->article->name .'" agregado']); 
+                // Discount Stock from article
+                // * Note the minus (-) sign in $request->quantity
+                $newStock = $this->updateCartItemStock($existingCartItem->article->id, -$request->quantity);
+                return back()->with('message', 'Artículo agregado');
             } 
             catch (\Exception $e) 
             {
-                return response()->json(['response' => 'error', 'message' => $e->getMessage()]); 
+                return back()->with('error', $e->getMessage());
             }
         }
                
     }
+
+    
+    // To Use with ajax. Need refactoring
+    //public function store(Request $request)
+    //{   
+    //    // This come from Customer Model getCartAttribute()
+    //    $activeCartId = auth()->guard('customer')->user()->cart->id;
+    //    
+    //    // Check if article is already stored in cart
+    //    $existingCartItem = CartItem::where('cart_id', $activeCartId)->where('size_id', $request->size_id)->where('article_id', $request->articleId)->first();
+    //    if(!$existingCartItem)
+    //    {
+    //        $article = CatalogArticle::where('id', $request->articleId)->first();
+    //        // Prevent overbuy
+    //        if($request->quantity > $article->stock)
+    //            return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible']);
+//
+    //        // Create New Cart Item
+    //        $cartItem = new CartItem();
+    //        $cartItem->cart_id = $activeCartId;
+    //        $cartItem->article_id = $request->articleId;
+    //        $cartItem->quantity = $request->quantity;
+    //        $cartItem->size_id = $request->size_id;
+    //                       
+    //        $cartItem->article_name = $article->name;
+    //        $cartItem->color = $article->color;
+    //        $cartItem->textile = $article->textile;
+    //        $cartItem->size = CatalogAtribute1::where('id', $request->size_id)->pluck('name')[0];
+//
+    //        try 
+    //        {
+    //            $newStock = $this->updateCartItemStock($article->id, -$request->quantity);
+    //            $cartItem->save();
+    //            
+    //            return response()->json(['response' => 'success', 'articleId' => $article->id, 
+    //            'message' => 'Producto "'. $article->name .'" agregado', 'newstock' => $newStock]); 
+    //        } 
+    //        catch (\Exception $e) 
+    //        {
+    //            return response()->json(['response' => 'error', 'message' => $e->getMessage()]); 
+    //        }
+    //    }
+    //    else
+    //    {   
+    //        // dd($request->quantity. ' '. $existingCartItem->article->stock);
+    //        // Stock management 
+    //        // dd("Stock requerido: " . $request->quantity. " Estock de artículo: ". $existingCartItem->article->stock);
+    //        if($request->quantity > $existingCartItem->article->stock)
+    //            dd("NO");
+    //            // return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible']);
+    //            // return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible', 'newstock' => $newStock]); 
+//
+    //        // Add quantity to existing item    
+    //        dd($existingCartItem->quantity);
+    //        $existingCartItem->quantity += $request->quantity;
+//
+    //        try
+    //        {
+    //            $existingCartItem->save();
+    //            dd()
+    //            // Discount Stock
+    //            // * Note the minus (-) sign in $request->quantity
+    //            $newStock = $this->updateCartItemStock($existingCartItem->id, -$request->quantity);
+//
+    //            return response()->json(['response' => 'success', 'articleId' => $existingCartItem->id, 'quantity' => $existingCartItem->quantity,
+    //            'message' => 'Producto "'. $existingCartItem->article->name .'" agregado']); 
+    //        } 
+    //        catch (\Exception $e) 
+    //        {
+    //            return response()->json(['response' => 'error', 'message' => $e->getMessage()]); 
+    //        }
+    //    }
+    //           
+    //}
 
 
     public function addQtoCartItem(Request $request)
@@ -119,6 +186,7 @@ class CartItemController extends Controller
     public function destroy(Request $request)
     {
         $item = CartItem::where('id', $request->itemid)->first();
+        // dd($item);
         try
         {
             // Return Stock
@@ -127,7 +195,6 @@ class CartItemController extends Controller
         } 
         catch (\Exception $e) 
         {
-            dd($e);
             return redirect()->back()->with('message', 'Error al eliminar');
         }
         // If last article is deleted also delete activecart
