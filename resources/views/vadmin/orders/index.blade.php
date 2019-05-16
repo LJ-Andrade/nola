@@ -108,10 +108,10 @@
 											{{ $item->customer->name }} {{ $item->customer->surname }} ({{ $item->customer->username }})
 										</a>
 									</td> --}}
-
-									<td class="show-link"><a href="{{ url('vadmin/customers/'.$item->id) }}"> {{ $item->username }} </a>  
-										@if($item->name != '') - {{ $item->name }} @endif 
-										@if($item->surname != '') {{ $item->surname }} @endif
+									<td class="show-link">
+										<a href="{{ url('vadmin/customers/'.$item->id) }}"> {{ $item->customer->username }} </a>  
+											@if($item->customer->name != '') - {{ $item->customer->name }} @endif 
+											@if($item->customer->surname != '') {{ $item->customer->surname }} @endif
 										</td>
 									<td>
 										@if($item->payment_method_id != NULL)
