@@ -36,10 +36,18 @@
     <div class="row">
         @component('vadmin.components.list')
             @slot('title')
-                Pedido #{{ $order['rawdata']->id }}
-                <span class="small"> | <b>Cliente: <a href="" data-toggle="modal" data-target="#CustomerDataModal"></b>
-                        {{ $order['rawdata']->customer->name }} {{ $order['rawdata']->customer->surname }}</a> 
-                        <p>{{ transDateT($order['rawdata']->created_at) }}</p>
+            <span style="font-size: 1.1rem"><b>Pedido #{{ $order['rawdata']->id }}</b></span>
+                <span style="font-size: 0.8rem"> | {{ transDateT($order['rawdata']->created_at) }}</span> <br>
+                <span class="small">
+                        <a href="" data-toggle="modal" data-target="#CustomerDataModal">
+                        {{ $order['rawdata']->customer->username }} 
+                        <span style="font-size: 0.8rem"> 
+                        @if($order['rawdata']->customer->name)
+                        | {{ $order['rawdata']->customer->name }} {{ $order['rawdata']->customer->surname }}
+                        @endif
+                        ({{ $order['rawdata']->customer->id }}) </span>
+                        </a>
+                        
                 </span>
             @endslot
             @slot('actions')
