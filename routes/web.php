@@ -92,6 +92,9 @@ Route::get('politica-de-exclusividad', function(){ return view('store.reseller-p
 Route::get('condiciones-de-compra', function(){ return view('store.buy-conditions'); });
 Route::get('como-comprar', function(){ return view('store.how-to-buy'); });
 
+// For checkout success message testing
+// Route::get('tienda/test-success', function(){ return view('store.checkout-success'); });
+
 // Searchs
 Route::get('tienda/talle/{name}', ['as' => 'store.search.size', 'uses' => 'Store\StoreController@searchSize']);
 Route::get('tienda/etiqueta/{name}', ['as' => 'store.search.tag', 'uses' => 'Store\StoreController@searchTag']);

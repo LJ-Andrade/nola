@@ -68,11 +68,13 @@ class RegisterController extends Controller
             'username' => 'required|string|max:20|unique:customers',
             'email' => 'required|string|email|max:255|unique:customers',
             'password' => 'required|string|min:6|confirmed',
+            'phone' => 'required'
         ],[
             'username.required'    => 'Debe ingresar un nombre de usuario',
             'username.max'         => 'El nombre de usuario puede contener hasta 20 caracteres',
             'username.unique'      => 'El nombre de usuario ingresado ya existe, debe elegir otro',
-            'email.unique'         => 'Ya hay un usuario registrado con el email ingresado, debe utilizar uno distinto'        
+            'email.unique'         => 'Ya hay un usuario registrado con el email ingresado, debe utilizar uno distinto',
+            'phone.required'       => 'Debe ingresar un número de teléfono'
         ]);
     }
         
@@ -86,6 +88,7 @@ class RegisterController extends Controller
         return Customer::create([
             'username' => $data['username'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'group' => $group,
             'status' => $status,
             'password' => bcrypt($data['password'])

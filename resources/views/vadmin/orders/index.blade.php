@@ -103,11 +103,16 @@
 										</label>
 									</td>
 									<td class="w-50 show-link"><a href="{{ url('vadmin/orders/'.$item->id) }}">#{{ $item->id }}</a></td>
-									<td class="show-link max-text">
+									{{-- <td class="show-link max-text">
 										<a href="{{ url('vadmin/customers/'.$item->customer_id) }}">
 											{{ $item->customer->name }} {{ $item->customer->surname }} ({{ $item->customer->username }})
 										</a>
-									</td>
+									</td> --}}
+
+									<td class="show-link"><a href="{{ url('vadmin/customers/'.$item->id) }}"> {{ $item->username }} </a>  
+										@if($item->name != '') - {{ $item->name }} @endif 
+										@if($item->surname != '') {{ $item->surname }} @endif
+										</td>
 									<td>
 										@if($item->payment_method_id != NULL)
 											@if($item->payment)

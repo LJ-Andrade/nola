@@ -33,6 +33,18 @@
                 </div> 
             </div>
             <div class="row">
+                {{-- Phone --}}
+                <div class="col-sm-12 form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                    <label for="reg-fn">Teléfono / Whatsapp</label>
+                    <input id="phone" type="text" name="phone" class="form-control round" placeholder="Ingresá tu número de teléfono" value="{{ old('phone') }}" required>
+                    @if ($errors->has('phone'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('phone') }}</strong>
+                        </span>
+                    @endif
+                </div> 	
+            </div>
+            <div class="row">
                 {{-- Password --}}
                 <div class="col-sm-6 form-group{{ $errors->has('password') ? ' has-error' : '' }} position-relative has-icon-left">
                     <label for="reg-fn">Contraseña</label>

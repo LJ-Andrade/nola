@@ -102,9 +102,9 @@
 								</td>
 								@endif
 								<td class="show-link"><a href="{{ url('vadmin/customers/'.$item->id) }}"> {{ $item->username }} </a>  
-								@if($item->name != '') - {{ $item->name }} @endif 
-								@if($item->surname != '') {{ $item->surname }} @endif
-									</td>
+									@if($item->name != '') - {{ $item->name }} @endif 
+									@if($item->surname != '') {{ $item->surname }} @endif
+								</td>
 								<td>{{ $item->email }}</td>
 								<td>{{ transDateT($item->created_at) }}</td>
 								<td>

@@ -11,9 +11,15 @@
                     <h2 class="card-title">Gracias por tu compra!</h2>
                     <h4 class="card-text">Tu pedido ya está en proceso.</h4>
                     <div class="short-divisor"><div class="inner"></div></div>
-                    No te olvides de agendar el número: <b>#{{ $cart->id }}</b></p>
-                    <p class="card-text">Podés revisar el estado del mismo en la <b><a href="{{ route('store.customer-orders') }}">"Lista de Pedidos"</a></b> desde tu perfil<br>
-                    
+                    {{-- No te olvides de agendar el número: <b>#{{ $cart->id }}</b></p> --}}
+                    {{-- No te olvides de agendar el número: <b>#34</b></p> --}}
+                    Cómunicate con tu número de pedido (<b>{{ $cart->id }}</b>) a nuestro whatsapp <b>11-6761-8867</b><br>
+                    para coordinar el pago y el envío de tu compra
+                    <p class="card-text">
+                        <br>
+                        Podés revisar tus órdenes realizadas el <b><a href="{{ route('store.customer-orders') }}">siguiente link</a></b>.
+                        <br><br>
+                    </p>
                     <div class="padding-top-1x padding-bottom-1x">
                         <a class="btn btn-outline-primary btn-sm" href="{{ url('tienda/descargar-comprobante', [$cart->id, 'stream']) }}" target="_blank"><i class="icon-eye"></i> Ver Comprobante</a>
                         <a class="btn btn-outline-primary btn-sm" href="{{ url('tienda/descargar-comprobante', [$cart->id, 'download']) }}" target="_blank"><i class="icon-download"></i> Descargar Comprobante</a>

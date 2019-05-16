@@ -288,9 +288,8 @@ class StoreController extends Controller
     
     public function checkoutLast()
     {
-        if($this->activeCart() == null){
+        if($this->activeCart() == null)
             return redirect()->route('store')->with('message', 'La página ha expirado');
-        }
 
         $geoprovs = GeoProv::pluck('name','id');
         $shippings = Shipping::orderBy('name', 'ASC')->get();
@@ -323,11 +322,15 @@ class StoreController extends Controller
             return back()->with('error', 'missing-shipping');
         
         // Set fixed prices on checkout confirmation
-        foreach($cart->items as $item){
+        foreach($cart->items as $item)
+        {
             $order = CartItem::find($item->id);
-            if(auth()->guard('customer')->user()->group == '3'){
+            if(auth()->guard('customer')->user()->group == '3')
+            {
                 $order->final_price = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount);
-            } else {
+            } 
+            else
+            {
                 $order->final_price = calcValuePercentNeg($item->article->price, $item->article->discount);
             }   
             $order->save();    
