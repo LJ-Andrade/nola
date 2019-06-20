@@ -1878,12 +1878,16 @@ body.vertical-layout.vertical-menu.menu-expanded .main-menu .navigation > li > a
   text-align: right;
 }
 
+.customize-banner .banner-img img {
+  max-width: 100%;
+}
+
 .content-wrapper {
   min-height: 90vh;
 }
 
 .card {
-  border-radius: 10px;
+  border-radius: 0;
   -webkit-box-shadow: 8px 4px 13px 1px rgba(0, 0, 0, 0.05);
           box-shadow: 8px 4px 13px 1px rgba(0, 0, 0, 0.05);
 }
@@ -2201,4 +2205,18 @@ body.vertical-layout.vertical-menu.menu-expanded .main-menu .navigation > li > a
 
 .content-wrapper {
   padding-bottom: 60px !important;
+}
+
+.fileuploader-theme-default {
+  background: transparent;
+  padding: 0;
+}
+
+.fileuploader-theme-default .fileuploader-input-button {
+  background: #292d3e;
+  border-radius: 0;
+}
+
+.fileuploader-theme-default input, .fileuploader-theme-default .fileuploader-input-caption {
+  border-radius: 0;
 }

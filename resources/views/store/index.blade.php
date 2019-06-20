@@ -1,13 +1,14 @@
 @extends('store.partials.main')
 
 @section('styles')
-	<link rel="stylesheet" href="{{ asset('plugins/owl/assets/owl.carousel.min.css') }}">
+	{{-- <link rel="stylesheet" href="{{ asset('plugins/owl/assets/owl.carousel.min.css') }}"> --}}
 @endsection
 
 @section('header-image')
-	<div class="owl-carousel">
-		<img src="{{ asset('images/web/home-banner.jpg')}}" alt="Klekas Home Banner">
-	</div>
+	{{-- <div class="owl-carousel">
+		<img src="{{ asset('images/web/'.$settings->home_banner ) }}" alt="Nola Home Banner">
+	</div> --}}
+	<img src="{{ asset('images/web/'.$settings->home_banner ) }}" alt="Nola Home Banner">
 @endsection
 
 @section('content')
@@ -224,7 +225,7 @@
 
 @section('scripts')
 	@include('store.components.bladejs')
-	<script type="text/javascript" src="{{ asset('plugins/owl/owl.carousel.min.js') }}" ></script>
+	{{-- <script type="text/javascript" src="{{ asset('plugins/owl/owl.carousel.min.js') }}" ></script>
 	<script>
 		$(document).ready(function(){
 			$('.owl-carousel').owlCarousel({
@@ -241,7 +242,7 @@
 				],
 				dots:true
 			});
-		});
+		}); --}}
 
 	</script>
 @endsection

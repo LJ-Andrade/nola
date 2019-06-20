@@ -14,6 +14,8 @@ use App\Settings;
 use App\Mail\SendSupportMail;
 use App\Mail\SendMail;
 use Mail;
+use Image;
+use File;
 
 
 class VadminController extends Controller
@@ -329,6 +331,64 @@ class VadminController extends Controller
     //         return back()->with('message', $e->getMessage());
     //     }
     // }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Customization
+    |--------------------------------------------------------------------------
+    */
+
+    public function customization()
+    {
+        $settings = Settings::findOrFail(1);
+        return view('vadmin.tools.customization')->with('settings', $settings);
+    }
+
+    public function updateHomeBanner(Request $request)
+    {
+        // dd($request->all());
+        if ($request->hasFile('image')) 
+        {
+            
+            $image   = $request->file('image');
+            $filename = 'home-banner.jpg';
+            
+            try
+            {
+                Image::make($image)->encode('jpg', 80)->save(public_path('images/web/'.$filename));
+                // if ($user->avatar != "default.jpg") {
+                //     $path     = public_path('images/users/');
+                //     $lastpath = $user->avatar;
+                //     File::Delete($path . $lastpath);   
+                // }
+                // $user->save();
+                return back()->with('message', 'Banner reemplazado exitosamente');
+            }   
+            catch(\Exception $e)
+            {
+                return back()->with('message', 'Error'. $e->getMessage());
+            }
+        }
+
+    }
+
+    public function restoreBackupBanner()
+    {
+        $backupImage = public_path('images/web/home-banner-backup.jpg');
+        $newImage = public_path('images/web/home-banner.jpg');
+        copy($backupImage, $newImage);
+        
+        return back()->with('message', 'Banner de respaldo activado');
+    }
+
+    public function setBackupBanner()
+    {
+        $image = public_path('images/web/home-banner.jpg');
+        $newImage = public_path('images/web/home-banner-backup.jpg');
+        copy($image, $newImage);
+        
+        return back()->with('message', 'Banner de respaldo establecido');
+    }
 
     /*
     |--------------------------------------------------------------------------

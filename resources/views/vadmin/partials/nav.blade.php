@@ -403,6 +403,10 @@
 		<li class="{{ Menu::activeMenu('configuracion') }}"><a href="{{ route('vadmin.settings') }}" class="menu-item">
 			<i class="fas fa-sliders-h"></i> Configuraciones
 		</a></li>
+		<li class="{{ Menu::activeMenu('personalizar') }}"><a href="{{ route('vadmin.customization') }}" class="menu-item">
+			<i class="fas fa-sliders-h"></i> Personalizar
+		</a></li>
+		
 
 		{{-- TESTS --}}
 		{{-- <li class="{{ Menu::activeMenu('tests') }}"><a href="{{ route('vadmin.tests') }}" class="menu-item">

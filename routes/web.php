@@ -170,6 +170,10 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     Route::get('/', 'VadminController@index');
 
     Route::get('configuracion', ['as' => 'vadmin.settings', 'uses' => 'VadminController@settings']);
+    Route::get('personalizar', ['as' => 'vadmin.customization', 'uses' => 'VadminController@customization']);
+    Route::post('updateHomeBanner', ['as' => 'vadmin.updateHomeBanner', 'uses' => 'VadminController@updateHomeBanner']);
+    Route::get('restoreBackupBanner', ['as' => 'vadmin.restoreBackupBanner', 'uses' => 'VadminController@restoreBackupBanner']);
+    Route::get('setBackupBanner', ['as' => 'vadmin.setBackupBanner', 'uses' => 'VadminController@setBackupBanner']);
     
 
     Route::post('sendMail', ['as' => 'vadmin.sendMail', 'uses' => 'VadminController@sendMail']);
