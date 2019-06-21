@@ -31,6 +31,8 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btnMain">Confirmar</button>
+                            <br><br>
+                            <span style="color: #949494"><i class="fas fa-info-circle"></i>  Si luego de cambiar la imágen no se visualizan los cambios recordá apretar CTRL + F5 para borrar el caché del explorador.</span>
                         </div>
                         {!! Form::close() !!}
                     </div>
