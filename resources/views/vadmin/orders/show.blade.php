@@ -39,15 +39,14 @@
             <span style="font-size: 1.1rem"><b>Pedido #{{ $order['rawdata']->id }}</b></span>
                 <span style="font-size: 0.8rem"> | {{ transDateT($order['rawdata']->created_at) }}</span> <br>
                 <span class="small">
-                        <a href="" data-toggle="modal" data-target="#CustomerDataModal">
+                    <a href="#" data-toggle="modal" data-target="#CustomerDataModal">
                         {{ $order['rawdata']->customer->username }} 
                         <span style="font-size: 0.8rem"> 
                         @if($order['rawdata']->customer->name)
                         | {{ $order['rawdata']->customer->name }} {{ $order['rawdata']->customer->surname }}
                         @endif
                         ({{ $order['rawdata']->customer->id }}) </span>
-                        </a>
-                        
+                    </a>
                 </span>
             @endslot
             @slot('actions')
@@ -247,7 +246,7 @@
                     @endif
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btnMain" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
