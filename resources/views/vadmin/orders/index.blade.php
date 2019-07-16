@@ -109,7 +109,7 @@
 										</a>
 									</td> --}}
 									<td class="show-link">
-										<a href="{{ url('vadmin/customers/'.$item->id) }}"> {{ $item->customer->username }} </a>  
+										<a href="{{ url('vadmin/customers/'.$item->customer->id) }}"> {{ $item->customer->username }} </a>  
 											@if($item->customer->name != '') - {{ $item->customer->name }} @endif 
 											@if($item->customer->surname != '') {{ $item->customer->surname }} @endif
 										</td>
